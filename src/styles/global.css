@@ -1,0 +1,142 @@
+/* ============================================================
+   CDH 3D Heritage — Global styles & design tokens
+   Olive / piney-woods palette, serif type, light + dark mode.
+   ============================================================ */
+
+:root {
+  /* Brand palette */
+  --pine:       #2F4A34;
+  --pine-dark:  #1B241B;
+  --olive:      #6B7A4F;
+  --bark:       #5A4A3A;
+  --sage-cream: #EDEFE3;
+  --sage-card:  #E3E7D6;
+
+  /* Semantic tokens (light mode defaults) */
+  --bg:        var(--sage-cream);
+  --surface:   var(--sage-card);
+  --header-bg: var(--pine);
+  --on-header: var(--sage-cream);
+  --text:      #25301F;
+  --text-soft: #4A5640;
+  --accent:    var(--pine);
+  --line:      rgba(47, 74, 52, 0.18);
+  --chip-bg:   rgba(47, 74, 52, 0.10);
+
+  --radius: 10px;
+  --maxw: 1240px;
+
+  /* Fluid type scale */
+  --fs-hero: clamp(2.4rem, 6vw, 4.5rem);
+  --fs-h2:   clamp(1.6rem, 3.5vw, 2.6rem);
+  --fs-h3:   clamp(1.2rem, 2.4vw, 1.6rem);
+}
+
+/* Dark mode: toggled by setting data-theme="dark" on <html> */
+html[data-theme="dark"] {
+  --bg:        var(--pine-dark);
+  --surface:   #25301F;
+  --header-bg: #16201A;
+  --on-header: var(--sage-cream);
+  --text:      #E7EBDD;
+  --text-soft: #AFB8A0;
+  --accent:    #9DB07E;
+  --line:      rgba(231, 235, 221, 0.16);
+  --chip-bg:   rgba(231, 235, 221, 0.12);
+}
+
+/* High-contrast accessibility mode */
+html[data-contrast="high"] {
+  --text:      #14200E;
+  --text-soft: #233018;
+  --line:      rgba(20, 32, 14, 0.5);
+}
+html[data-theme="dark"][data-contrast="high"] {
+  --text:      #FFFFFF;
+  --text-soft: #DCE4CF;
+}
+
+/* Text-size accessibility setting */
+html[data-textsize="large"]  { font-size: 118%; }
+html[data-textsize="small"]  { font-size: 90%; }
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: "Lora", Georgia, "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3 { line-height: 1.15; font-weight: 600; margin: 0 0 0.4em; }
+
+a { color: inherit; }
+
+img { max-width: 100%; display: block; }
+
+/* Keyboard focus visibility (accessibility floor) */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Reusable layout helper */
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 32px);
+}
+
+.eyebrow {
+  font-size: 0.74rem;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin: 0 0 0.4em;
+}
+
+/* Buttons */
+.btn {
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 0.7em 1.4em;
+  border: 1px solid transparent;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.btn-solid { background: var(--pine); color: var(--sage-cream); }
+.btn-solid:hover { background: var(--pine-dark); }
+.btn-ghost { background: transparent; color: var(--accent); border-color: var(--olive); }
+.btn-ghost:hover { background: rgba(107, 122, 79, 0.12); }
+
+/* Chips (metadata tags) */
+.chip {
+  font-size: 0.76rem;
+  background: var(--chip-bg);
+  color: var(--text-soft);
+  padding: 0.25em 0.8em;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
