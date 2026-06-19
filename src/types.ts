@@ -1,49 +1,46 @@
-// Core data model for a digitized cultural heritage object.
+//The shape of one digitized heritage objecct.
+import type {
+  Theme,
+  StoryPathway,
+  ObjectType,
+  Place,
+  Period,
+} from "./data/taxonomy";
 
-export type Theme =
-  | "Native American"
-  | "African American"
-  | "Military"
-  | "USM"
-  | "Architecture"
-  | "Public Art"
-  | "Memorabilia";
-
-export type Location =
-  | "Hattiesburg"
-  | "Gulf Coast"
-  | "Natchez"
-  | "Archaeology Lab"
-  | "USM Campus";
-
-export type TimePeriod =
-  | "Pre-1800"
-  | "1800-1900"
-  | "1900-1950"
-  | "Contemporary";
+//An object can be tied to several places, each with a different theme
+export interface ObjectLocation {
+  primary: Place; 
+  recovery?: Place;         // ? is used to indicate that this field is optional
+  holding?: Place;
+  digitization?: Place;
+}
 
 export interface HeritageObject {
   id: string;
+  slug: string; 
   title: string;
-  description: string;
+  objectType: ObjectType;
+  storyPathway: StoryPathway;
   themes: Theme[];
-  location: Location;
-  timePeriod: TimePeriod;
-  /** URL to the .glb model (Omeka media original_url, or a local/sample path). */
+  period: Period;
+  locations: ObjectLocation;
+  significance: string;
+  whyItMatters: string;
   modelUrl: string;
-  /** Optional poster/thumbnail image. */
   posterUrl?: string;
   material?: string;
   dimensions?: string;
   accessionNumber?: string;
-  dateDigitized?: string;
-  /** Link back to the Omeka S record (system of record). */
-  omekaUrl?: string;
+  dateDigitized?: string; // ISO format date string (e.g., "2024-09-12")
+  omekaUrl? : string; // URL to the object's page in the Omeka S collection, if applicable
 }
 
+//The active filters on the Collectiion Page.
 export interface Filters {
+  storyPathways: StoryPathway[];
   themes: Theme[];
-  locations: Location[];
-  periods: TimePeriod[];
-  query: string;
+  objectTypes: ObjectType[];
+  places: Place[];
+  periods: Period[];
+  query: string; // Search query string
 }
