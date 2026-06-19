@@ -1,7 +1,7 @@
-/* ============================================================
+/* 
    CDH 3D Heritage — Global styles & design tokens
    Olive / piney-woods palette, serif type, light + dark mode.
-   ============================================================ */
+   */
 
 :root {
   /* Brand palette */
@@ -140,3 +140,14 @@ img { max-width: 100%; display: block; }
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Site header */
+.site-header { background: var(--header-bg); color: var(--on-header); }
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-block: 14px; gap: 16px; flex-wrap: wrap;
+}
+.logo { font-weight: 700; font-size: 1.05rem; }
+.main-nav { display: flex; gap: 22px; flex-wrap: wrap; }
+.main-nav a { color: var(--on-header); text-decoration: none; opacity: 0.9; }
+.main-nav a:hover { opacity: 1; text-decoration: underline; }
