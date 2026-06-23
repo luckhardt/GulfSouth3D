@@ -1,19 +1,28 @@
 //This is the main app component for the project. It will eventually contain the main layout and routing for the application.
 
-import Header from "./components/Header";
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import Header from './components/Header';
+import OjectDetail from './pages/ObjectDetail';
+import Home from './pages/Home';
+import Collection from './pages/Collection';
+
+//Each page is wired through the router and the navigation links are provided in the header. The header is a simple flexbox layout with a logo and navigation links. The main content of the page is rendered based on the current route.
 
 function App() {
     return (
-        <div>
+        <BrowserRouter>
             <Header />
-            <div className = "container">
-                {/* Here the wordings needs to be updated */}
-                <h1>Digitizing the Cultural Heritage of South Mississippi</h1>
-                <p>Our 3d archive is coming soon!</p>
-                {/* Wordings need to be updated */}
-            </div>
-        </div>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/collection" element={<Collection />} />
+                <Route path="/collection/:slug" element={<OjectDetail />} />
+                {/* stub routes - pages not yet implemented */}
+                <Route path ="/stories" element={<div className="container"><h1>Stories</h1></div>}/>
+                <Route path ="/map" element={<div className="container"><h1>Map</h1></div>}/>
+                <Route path ="/about" element={<div className="container"><h1>About</h1></div>}/>
+            </Routes>
+        </BrowserRouter>
     );
-}
 
+}
 export default App;

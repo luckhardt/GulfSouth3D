@@ -1,5 +1,6 @@
 import type {HeritageObject} from "../types";
 
+// Sample data for two digitized heritage objects. These are used in the development and testing of the Collection Page and Object Detail Page. In a production version of the app, this data would be fetched from an API instead of being hardcoded.
 export const sampleObjects: HeritageObject[] = [
   {
     id: "obj-001",

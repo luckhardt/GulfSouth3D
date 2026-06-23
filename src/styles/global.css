@@ -151,3 +151,10 @@ img { max-width: 100%; display: block; }
 .main-nav { display: flex; gap: 22px; flex-wrap: wrap; }
 .main-nav a { color: var(--on-header); text-decoration: none; opacity: 0.9; }
 .main-nav a:hover { opacity: 1; text-decoration: underline; }
+
+.object-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; margin: 32px 0; }
+.object-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.object-thumb { aspect-ratio: 4 / 3; background: rgba(47,74,52,0.08); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; letter-spacing: 1px; color: var(--text-soft); }
+.object-body { padding: 16px; }
+.object-title { font-size: 1.1rem; margin: 0 0 10px; }
+.object-chips { display: flex; gap: 8px; flex-wrap: wrap; }
