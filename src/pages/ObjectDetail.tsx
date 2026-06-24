@@ -1,3 +1,4 @@
+import ModelViewer from "../components/ModelViewer";
 import { useParams, Link } from 'react-router-dom';
 import { sampleObjects } from '../data/sampleobjects';
 
@@ -22,9 +23,7 @@ function ObjectDetail() {
             <Link to="/collection">Back to Collection</Link>
             <h1>{object.title}</h1>
             <p className="eyebrow">{object.objectType} · {object.period}</p>
-            <div className="object-thumb" style={{ maxWidth: 480, borderRadius: 10, overflow: 'hidden', marginBottom: 20 }}>
-                3D MODEL
-            </div>
+            <ModelViewer src={object.modelUrl} alt={object.title} poster={object.posterUrl} />
             <p>{object.whyItMatters}</p>
             </div>
     );

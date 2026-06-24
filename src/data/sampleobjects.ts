@@ -19,7 +19,7 @@ export const sampleObjects: HeritageObject[] = [
       "A surviving fragment of a bell that once called a historic black congregation to worship.",
     whyItMatters:
       "This fragment is one of the few material traces of a congregation central to its community's life. In 3D, the casting marks and wear become legible, linking present-day viewers to the generations who gathered as its sound.",
-    modelUrl: "/models/bell-fragment.glb",
+    modelUrl: "/models/Duck.glb",
     material: "Bronze",
     dimensions: "18 x 14 x 9 cm",
     accessionNumber: "CDH-2024-001",
@@ -42,7 +42,7 @@ export const sampleObjects: HeritageObject[] = [
       "A cast-iron lantern housing from the historic Biloxi Lighthouse on the Mississippi Gulf Coast.",
     whyItMatters:
       "This piece represents the engineering and craftsmanship of the late nineteenth century, showcasing the architectural details and construction techniques of the era.",
-    modelUrl: "/models/biloxi-lantern.glb",
+    modelUrl: "/models/Duck.glb",
     material: "Cast iron",
     dimensions: "120 × 90 × 90 cm",
     accessionNumber: "CDH-2024-002",

@@ -24,3 +24,6 @@ Thumbs.db
 
 # Vite cache
 .vite/
+
+#3d models are served from the public folder, so we don't need to include them in the repo.
+public/models/
