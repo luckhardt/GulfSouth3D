@@ -1,33 +1,45 @@
+import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { getObjectBySlug } from "../api/omeka";
 import ModelViewer from "../components/ModelViewer";
-import { useParams, Link } from 'react-router-dom';
-import { sampleObjects } from '../data/sampleobjects';
+import type { HeritageObject } from "../types";
 
 function ObjectDetail() {
-    //useParams() reads the dynamic part of the URL (the:slug below)
-    const { slug } = useParams();
+  const { slug } = useParams();
+  const [object, setObject] = useState<HeritageObject | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
 
-    //Finding the Object whose slug matches the URL
-    const object = sampleObjects.find((o) => o.slug === slug);
+  useEffect(() => {
+    // slug could be undefined for a moment; guard against it
+    if (!slug) return;
+    getObjectBySlug(slug).then((data) => {
+      setObject(data);
+      setLoading(false);
+    });
+  }, [slug]); // re-run if the slug changes
 
-    if(!object) {
-        return (
-            <div className="container">
-                <h1>Object Not Found</h1>
-                <Link to="/collection">Back to Collection</Link>
-            </div>
-        );
-    }
+  if (loading) {
+    return <div className="container"><p>Loading…</p></div>;
+  }
 
+  if (!object) {
     return (
-        <div className="container">
-            <Link to="/collection">Back to Collection</Link>
-            <h1>{object.title}</h1>
-            <p className="eyebrow">{object.objectType} · {object.period}</p>
-            <ModelViewer src={object.modelUrl} alt={object.title} poster={object.posterUrl} />
-            <p>{object.whyItMatters}</p>
-            </div>
+      <div className="container">
+        <h1>Object not found</h1>
+        <Link to="/collection">← Back to the collection</Link>
+      </div>
     );
+  }
+
+  return (
+    <div className="container">
+      <Link to="/collection">← Back to the collection</Link>
+      <h1>{object.title}</h1>
+      <p className="eyebrow">{object.objectType} · {object.period}</p>
+      <ModelViewer src={object.modelUrl} alt={object.title} poster={object.posterUrl} />
+      <p>{object.whyItMatters}</p>
+    </div>
+  );
 }
 
 export default ObjectDetail;
-
