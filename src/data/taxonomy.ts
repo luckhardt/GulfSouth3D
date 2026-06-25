@@ -49,7 +49,7 @@ export const PLACES = [
 export type Place = (typeof PLACES)[number];
 
 export const PERIODS = [
-  "Pre-contact / Indigenous",
+  "Pre-contact / Indigenous", //change needed to the dates rather than the names
   "Colonial Period",
   "Nineteenth Century",
   "Early Twentieth Century",

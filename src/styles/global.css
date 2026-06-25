@@ -168,3 +168,8 @@ img { max-width: 100%; display: block; }
   background: var(--surface);
   border-radius: var(--radius);
 }
+
+/* Filters */
+.filter-group { margin-bottom: 20px; }
+.filter-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; cursor: pointer; }
+.filter-row input { cursor: pointer; }
