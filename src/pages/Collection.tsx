@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
+import type React from "react";
 import ObjectCard from "../components/ObjectCard";
+import FilterGroup from "../components/FilterGroup";
 import { getObjects } from "../api/omeka";
 import type { HeritageObject } from "../types";
-import { STORY_PATHWAYS, type StoryPathway } from "../data/taxonomy";
+import { STORY_PATHWAYS, type StoryPathway,
+         THEMES, type Theme,
+         OBJECT_TYPES, type ObjectType,
+         PLACES, type Place,
+         PERIODS, type Period,
+ } from "../data/taxonomy";
 
 function Collection() {
     //State is a place to hold the objects and the loading flag
@@ -10,6 +17,11 @@ function Collection() {
     const [loading, setLoading] = useState(true);
     const [query, setQuery] = useState(""); //the search text
     const [pathways, setPathways] = useState<StoryPathway[]>([])  //selected pathways
+    const [themes, setThemes] = useState<Theme[]>([]);
+    const [types, setTypes] = useState<ObjectType[]>([]);
+    const [places, setPlaces] = useState<Place[]>([]);
+    const [periods, setPeriods] = useState<Period[]>([]);
+
 
     //Effect is run once when the page loads and it fetches the data
     useEffect(() => {
@@ -19,20 +31,23 @@ function Collection() {
         }); 
     }, []);
 
-    function togglePathways(p: StoryPathway) {
-        setPathways((current) =>
-            current.includes(p)
-                ? current.filter((x) => x !== p) // removes if already in
-                : [...current, p] //adds if not there
-            );
+    function toggleValue<T>(value: T, setter: React.Dispatch<React.SetStateAction<T[]>>){
+        setter((current) => 
+        current.includes(value)
+        ? current.filter((x) => x !== value)
+        : [...current, value]
+        );
     }
 
     //this calculates each and every render whenever it changes
     const visible = objects.filter((object) => {
         const matchesQuery = object.title.toLowerCase().includes(query.toLowerCase())
-        const matchesPathway = 
-            pathways.length === 0 || pathways.includes(object.storyPathway);
-        return matchesQuery && matchesPathway
+        const matchesPathway = pathways.length === 0 || pathways.includes(object.storyPathway);
+        const matchesTheme = themes.length === 0 || object.themes.some((t) => themes.includes(t));
+        const matchesType = types.length === 0 || types.includes(object.objectType);
+        const matchesPlace = places.length === 0 || places.includes(object.locations.primary);
+        const matchesPeriod = periods.length === 0 || periods.includes(object.period);
+        return matchesQuery && matchesPathway && matchesTheme && matchesType && matchesPlace && matchesPeriod;
 });
 
     if (loading) {
@@ -42,31 +57,46 @@ function Collection() {
     return (
         <div className="container">
             <h1>The Collection</h1>
-        
-        <div className="filter-group">
-            <h3 className="eyebrow">Story Pathway</h3>
-            {STORY_PATHWAYS.map((p) => (
-                <label key={p} className="filter-row">
-                    <input
-                        type="checkbox"
-                        checked={pathways.includes(p)}
-                        onChange={() => togglePathways(p)}
-                        />
-                        {p}
-                </label>
-            ))}
-        </div>
 
+            <FilterGroup
+                title="Story Pathway"
+                options={STORY_PATHWAYS}
+                selected={pathways}
+                onToggle={(p) => toggleValue(p, setPathways)}
+            />
+            <FilterGroup
+                title="Theme"
+                options={THEMES}
+                selected={themes}
+                onToggle={(v) => toggleValue(v, setThemes)}
+            />
+            <FilterGroup
+                title="Object Type"
+                options={OBJECT_TYPES}
+                selected={types}
+                onToggle={(v) => toggleValue(v, setTypes)}
+            />
+            <FilterGroup
+                title="Place"
+                options={PLACES}
+                selected={places}
+                onToggle={(v) => toggleValue(v, setPlaces)}
+            />
+            <FilterGroup
+                title="Date / Period"
+                options={PERIODS}
+                selected={periods}
+                onToggle={(v) => toggleValue(v, setPeriods)}
+            />
             <input
                 type="text"
-                placeholder="Search the collection..."
+                placeholder="Search The Collection..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 className="search-input"
             />
 
             <p className="eyebrow">Showing {visible.length} objects</p>
-
 
             <div className="object-grid">
                 {visible.map((object) => (
