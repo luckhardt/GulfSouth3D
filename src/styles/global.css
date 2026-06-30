@@ -179,3 +179,8 @@ img { max-width: 100%; display: block; }
 .story-card { display: block; padding: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; color: var(--text); transition: transform 0.15s ease; }
 .story-card:hover { transform: translateY(-3px); }
 .story-explore { color: var(--olive); font-size: 0.9rem; }
+
+/* About Page */
+.team-list { list-style: none; padding: 0; }
+.team-list li { padding: 8px 0; border-bottom: 1px solid var(--line); }
+
