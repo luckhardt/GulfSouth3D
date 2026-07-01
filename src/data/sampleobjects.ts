@@ -9,7 +9,7 @@ export const sampleObjects: HeritageObject[] = [
     objectType: "Memorabilia",
     storyPathway: "Community Memory",
     themes: ["African American Histories", "Public Memory"],
-    period: "Nineteenth Century",
+    period: "1800-1899",
     locations: {
       primary: "Hattiesburg",
       holding: "USM Campus",
@@ -32,7 +32,7 @@ export const sampleObjects: HeritageObject[] = [
     objectType: "Building/Site",
     storyPathway: "Historic Buildings",
     themes: ["Built Environment", "Civic Identity"],
-    period: "Nineteenth Century",
+    period: "1800-1899",
     locations: {
       primary: "Gulf Coast",
       holding: "USM Campus",

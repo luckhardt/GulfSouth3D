@@ -20,14 +20,14 @@ export const THEMES = [
   "Built Environment",
   "Everyday Life",
   "Civic Identity",
-  "Public Art and Placemaking",
+  "Public Art",
   "Institutional Culture",
   "Environmental History",
 ] as const;
 export type Theme = (typeof THEMES)[number];
 
 export const OBJECT_TYPES = [
-  "Archaeological Object",
+  "Archaeological Objects",
   "Building/Site",
   "Public Artwork",
   "Memorabilia",
@@ -49,13 +49,13 @@ export const PLACES = [
 export type Place = (typeof PLACES)[number];
 
 export const PERIODS = [
-  "Pre-contact / Indigenous", //change needed to the dates rather than the names
-  "Colonial Period",
-  "Nineteenth Century",
-  "Early Twentieth Century",
-  "World War II Era",
-  "Late Twentieth Century",
-  "Contemporary",
+  "Pre-1540",
+  "1540-1799",
+  "1800-1899",
+  "1900-1940",
+  "1941-1959",
+  "1960-1999",
+  "2000 – present",
 ] as const;
 export type Period = (typeof PERIODS)[number];
 
