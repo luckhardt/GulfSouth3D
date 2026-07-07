@@ -1,55 +1,93 @@
-import type { HeritageObject } from "../types";
-import { sampleObjects}  from "../data/sampleobjects";
-
-//the Omeka S API base URL, reads from .env file
-//If it is blank we fall back to the sample data so we can continue developing.
+import type { HeritageObject } from '../types';
+import type { Theme, ObjectType, Place, Period, StoryPathway } from '../data/taxonomy';
+import { sampleObjects } from "../data/sampleobjects";
 
 const OMEKA_URL = import.meta.env.VITE_OMEKA_API_URL;
 
-//Omeka stores each property as an array like
-//[{"@value": "Hattiesburg"}]. This pulls out the first value
-
-function val(item: any, prop: string): string{
-    return item[prop]?.[0]?.["@value"]??"";
+//grabs the first value for a given Dublin Core
+function getElement (item: any, elementName: string): string {
+    const match = item.element_texts?.find(
+        (et: any) => et.element?.name === elementName
+    )
+    return match?.text ?? "";
 }
 
-//Transforming raw Omeka item (JSON) into the HeritageObject Shape
+//grabs all the values for a given Dublin Core element
+function getAllElements(item: any, elementName: string): string[] {
+    return (item.element_texts ?? [])
+        .filter((et: any) => et.element?.name === elementName)
+        .map((et: any) => et.text);
+}
 
-function mapOmekaItem(item:any): HeritageObject {
+//turns title to a slug for use in URLs
+function slugify(title: string): string {
+    return title.toLowerCase(). trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
+//fetch the item's files and pick out the model and poster files
+async function getFilesForItem(itemId: number): Promise<{ modelUrl: string; posterUrl: string }> {
+    const res = await fetch(`${OMEKA_URL}/files?item=${itemId}`);
+    const files = await res.json();
+
+    //the files which ends in .glb
+    const model = files.find((f: any) =>
+        f.original_filename?.toLowerCase().endsWith(".glb")
+    );
+
+    //The image files
+    const poster = files.find((f: any) => f.mime_type?.startsWith("image/"));
+
+    //rewiring through proxy to avoid CORS issues. The proxy is set up in vite.config.ts
+    const toProxy = (url: string) => 
+         url.replace(/^https?:\/\/[^/]+\/files/, "/omeka-files");
+    
     return {
-        id: String(item["o:id"]),
-        slug: val(item, "dcterms:identifier") || String(item["o:id"]),
-        title: item["o:title"] ?? "Untitled",
-        objectType: val(item, "dcterms:type") as HeritageObject["objectType"],
-        storyPathway: val(item, "dcterms:subject") as HeritageObject["storyPathway"],
-        themes: [val(item, "dcterms:subject")] as HeritageObject["themes"],
-        period: val(item, "dcterms:temporal") as HeritageObject["period"],
-        locations: { primary: val(item, "dcterms:spatial") as any },
-        significance: val(item, "dcterms:abstract"),
-        whyItMatters: val(item, "dcterms:description"),
-        modelUrl: item["o:media"]?.[0]?.["o:original_url"] ?? "",
-        omekaUrl: item["@id"],
+        modelUrl: toProxy(model?.file_urls?.original ?? ""),
+        posterUrl: toProxy(poster?.file_urls?.original ?? ""),
     };
 }
 
-//Get ALL object. Fall back to sample data if no Omeka URL is in place.
-export async function getObjects(): Promise<HeritageObject[]>{
-    if (!OMEKA_URL){
-        return sampleObjects;  //no omeka yet??-> use the sample data
+//MAPPING OMEKA DATA TO HERITAGE OBJECTS
 
+async function mapOmekaItem(item: any): Promise<HeritageObject> {
+    const title = getElement(item, "Title");
+    const files = await getFilesForItem(item.id);
+
+    return {
+        id: String(item.id),
+        slug: slugify(title),
+        title,
+        objectType: getElement(item, "Type") as ObjectType,
+        storyPathway: getElement(item, "Identifier") as StoryPathway,
+        themes: getAllElements(item, "Subject") as Theme[],
+        period: getElement(item, "Relation") as Period,
+        locations: { primary: getElement(item, "Coverage") as Place },
+        significance: getElement(item, "Description"),
+        whyItMatters: getElement(item, "Description"),
+        modelUrl: files.modelUrl,
+        posterUrl: files.posterUrl,
+        material: getElement(item, "Format"),
+        accessionNumber: getElement(item, "Source"),
+        dateDigitized: getElement(item, "Date"),
+        omekaUrl: `${OMEKA_URL?.replace("/api", "")}/items/show/${item.id}`,
+    };
+}
+
+//Public API
+
+export async function getObjects(): Promise<HeritageObject[]> {
+    if (!OMEKA_URL) {
+        return sampleObjects;
     }
 
     const res = await fetch(`${OMEKA_URL}/items`);
     const data = await res.json();
-    return data.map(mapOmekaItem);
+
+    //map returns Promises (files fetched) so we wait for all of them
+    return Promise.all(data.map((item: any) => mapOmekaItem(item)));
 }
 
-//now we get ONE object by its slug
-export async function getObjectBySlug(
-    slug: string
-): Promise<HeritageObject | undefined> {
+export async function getObjectBySlug(slug: string): Promise<HeritageObject | undefined> {
     const objects = await getObjects();
-    return objects.find((o) => o.slug ===slug);
-
+    return objects.find((obj) => obj.slug === slug);
 }
-

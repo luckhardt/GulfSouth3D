@@ -3,5 +3,21 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  server: { port: 5173, host: true },
+  server: {
+    port: 5173,
+    host: true,
+    proxy: {
+      "/omeka-api": {
+        target: "https://digitizedculturalheritageofusmarchive.usmcdh.org",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/omeka-api/, "/api"),
+      },
+
+      "/omeka-files": {
+        target: "https://digitizedculturalheritageofusmarchive.usmcdh.org",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/omeka-files/, "/files"),
+      }
+    },
+  },
 });
