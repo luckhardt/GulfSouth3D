@@ -56,52 +56,37 @@ function Collection() {
 
     return (
         <div className="container">
+            <p className="eyebrow">Archive</p>
             <h1>The Collection</h1>
 
-            <FilterGroup
-                title="Story Pathway"
-                options={STORY_PATHWAYS}
-                selected={pathways}
-                onToggle={(p) => toggleValue(p, setPathways)}
-            />
-            <FilterGroup
-                title="Theme"
-                options={THEMES}
-                selected={themes}
-                onToggle={(v) => toggleValue(v, setThemes)}
-            />
-            <FilterGroup
-                title="Object Type"
-                options={OBJECT_TYPES}
-                selected={types}
-                onToggle={(v) => toggleValue(v, setTypes)}
-            />
-            <FilterGroup
-                title="Place"
-                options={PLACES}
-                selected={places}
-                onToggle={(v) => toggleValue(v, setPlaces)}
-            />
-            <FilterGroup
-                title="Date / Period"
-                options={PERIODS}
-                selected={periods}
-                onToggle={(v) => toggleValue(v, setPeriods)}
-            />
-            <input
-                type="text"
-                placeholder="Search The Collection..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                className="search-input"
-            />
+            <div className="collection-layout">
+                {/*Left: filter sidebar*/}
+                <aside className="filter-sidebar">
+                    <h2 className="filter-heading">Filters</h2>
+                    {/* Filter content would go here */}
+                    <FilterGroup title="Story Pathway" options={STORY_PATHWAYS} selected={pathways} onToggle={(p) => toggleValue(p, setPathways)} />
+                    <FilterGroup title="Theme" options={THEMES} selected={themes} onToggle={(v) => toggleValue(v, setThemes)} />
+                    <FilterGroup title="Object Types" options={OBJECT_TYPES} selected={types} onToggle={(v) => toggleValue(v, setTypes)} />
+                    <FilterGroup title="Places" options={PLACES} selected={places} onToggle={(v) => toggleValue(v, setPlaces)} />
+                    <FilterGroup title="Periods" options={PERIODS} selected={periods} onToggle={(v) => toggleValue(v, setPeriods)} />
+                </aside>
 
-            <p className="eyebrow">Showing {visible.length} objects</p>
-
-            <div className="object-grid">
-                {visible.map((object) => (
-                    <ObjectCard key={object.id} object={object} />
-                ))}
+                {/*Right: object grid*/}
+                <div className="collection-main">
+                    <input
+                        type="text"
+                        placeholder="Search the collection"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        className="search-input"
+                    />
+                    <p className="eyebrow">Showing {visible.length} objects</p>
+                    <div className="object-grid">
+                        {visible.map((object) => (
+                            <ObjectCard key={object.id} object={object} />
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );
