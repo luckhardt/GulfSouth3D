@@ -14,7 +14,7 @@ function ObjectCard({object}: {object: HeritageObject}) {
             </div>
 
             <div className="object-body">
-                <h3 className="Object-title">{object.title}</h3>
+                <h3 className="object-title">{object.title}</h3>
                 <div className="object-chips">
                     <span className="chip">{object.locations.primary}</span>
                     <span className="chip">{object.period}</span>

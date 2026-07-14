@@ -27,6 +27,12 @@ function slugify(title: string): string {
 //fetch the item's files and pick out the model and poster files
 async function getFilesForItem(itemId: number): Promise<{ modelUrl: string; posterUrl: string }> {
     const res = await fetch(`${OMEKA_URL}/files?item=${itemId}`);
+
+    if(!res.ok) {
+        console.error(`Failed to fetch for item ${itemId}: ${res.status}`);
+        return { modelUrl: "", posterUrl: ""};
+    }
+
     const files = await res.json();
 
     //the files which ends in .glb
@@ -72,7 +78,6 @@ async function mapOmekaItem(item: any): Promise<HeritageObject> {
         omekaUrl: `${OMEKA_URL?.replace("/api", "")}/items/show/${item.id}`,
     };
 }
-
 //Public API
 
 export async function getObjects(): Promise<HeritageObject[]> {
@@ -80,11 +85,28 @@ export async function getObjects(): Promise<HeritageObject[]> {
         return sampleObjects;
     }
 
-    const res = await fetch(`${OMEKA_URL}/items`);
-    const data = await res.json();
+    try {
 
-    //map returns Promises (files fetched) so we wait for all of them
-    return Promise.all(data.map((item: any) => mapOmekaItem(item)));
+        const res = await fetch(`${OMEKA_URL}/items`);
+        if(!res.ok) {
+            console.error(`Failed to fetch objects: ${res.status}`);
+            return sampleObjects;
+        }
+
+        const data = await res.json();
+        const results = await Promise.allSettled(data.map((item: any) => mapOmekaItem(item)));
+
+        results
+            .filter((r) => r.status === "rejected")
+            .forEach((r) => console.error("Skipped an item:", (r as PromiseRejectedResult).reason))
+        
+        return results
+            .filter((r) => r.status === "fulfilled")
+            .map((r) => (r as PromiseFulfilledResult<HeritageObject>).value);
+    } catch(error) {
+        console.error("Failed to Fetch Objects from Omeka: ", error);
+        return sampleObjects;
+    }
 }
 
 export async function getObjectBySlug(slug: string): Promise<HeritageObject | undefined> {

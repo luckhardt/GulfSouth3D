@@ -2,12 +2,13 @@
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import OjectDetail from './pages/ObjectDetail';
 import Home from './pages/Home';
 import Collection from './pages/Collection';
-import Stories from "./pages/Stories";
+import Stories from './pages/Stories';
 import StoryPathway from './pages/StoryPathway';
-import MapPage from "./pages/MapPage";
+import MapPage from './pages/MapPage';
 import About from './pages/About';
 
 //Each page is wired through the router and the navigation links are provided in the header. The header is a simple flexbox layout with a logo and navigation links. The main content of the page is rendered based on the current route.
@@ -27,6 +28,7 @@ function App() {
                 <Route path ="/map" element={<MapPage />}/>
                 
             </Routes>
+            <Footer />
         </BrowserRouter>
     );
 
