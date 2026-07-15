@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import{ getObjects } from "../api/omeka";
 import type { HeritageObject } from "../types";
 import ObjectCard from "../components/ObjectCard";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { coordsFor } from "../data/placeCoords";
+import "leaflet/dist/leaflet.css";
 
 //Random generator
 function getRandomItems<T>(array: T[], count: number): T[] {
@@ -16,7 +19,7 @@ function getRandomItems<T>(array: T[], count: number): T[] {
 }
 
 function Home() {
-  
+
   const [featured, setFeatured] = useState<HeritageObject[]>([]);
 
   useEffect(() => {
@@ -104,6 +107,25 @@ function Home() {
         <div style={{ textAlign: "center", marginTop: "24px"}}>
           <Link to="/collection" className="btn btn-solid">Explore the Full Collection →</Link>
         </div>
+      </section>
+
+      <section className="container">
+          <h2>Explore by Place</h2>
+          <div className="map-peek">
+            <MapContainer center={[31.2, -89.5]} zoom={7} className="map-container" style={{ height:"100%"}} zoomControl={false}>
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution="&copy; OpenStreetMap contributors"
+              />
+              {featured.map((object) => (
+                <Marker key={object.id} position={coordsFor(object.locations.primary)} />
+
+              ))}
+            </MapContainer>
+            <Link to="/map" className="map-peek-overlay">
+              <span className="map-peek-label">View Full Map →</span>
+            </Link>
+          </div>
       </section>
     </div>
   );

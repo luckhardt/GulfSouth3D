@@ -187,6 +187,85 @@ img { max-width: 100%; display: block; }
 /* --Maps-- */
 .map-container { height: 540px; width: 100%; border-radius: var(--radius); margin: 24px 0; z-index: 0; }
 
+.page-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-soft);
+  max-width: 60ch;
+  margin: 0 0 8px;
+}
+
+.custom-map-pin {
+  background: transparent;
+  border: none;
+}
+
+/*FlyTo For Maps*/
+.place-list { list-style: none; padding: 0; margin: 0; }
+
+.place-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.place-item:hover { color: var(--pine); }
+
+.place-item.active {
+  color: var(--pine);
+  font-weight: 600;
+}
+
+.place-count {
+  font-size: 0.78rem;
+  background: var(--chip-bg);
+  color: var(--text-soft);
+  padding: 0.2em 0.6em;
+  border-radius: 999px;
+}
+
+/*Popup in the maps page*/
+.leaflet-popup-content-wrapper {
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--radius);
+  font-family: "Lora", Georgia, serif;
+}
+
+.leaflet-popup-content {
+  margin: 14px 16px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.leaflet-popup-content strong {
+  color: var(--pine);
+  font-size: 1rem;
+}
+
+.leaflet-popup-content a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.leaflet-popup-content a:hover {
+  text-decoration: underline;
+}
+
+.leaflet-popup-tip {
+  background: var(--surface);
+}
+
 /*-- Object detail page-- */
 
 .object-layout {
@@ -513,18 +592,36 @@ img { max-width: 100%; display: block; }
 
 .story-card-image {
   position: relative;
-  aspect-ratio: 4/3;
+  aspect-ratio: 3/4;
   border-radius: var(--radius);
   overflow: hidden;
   display: flex;
   align-items: flex-end;
-  padding: 20px;
+  padding: 24px;
   color: var(--sage-cream);
   text-decoration: none;
-  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
   background-color: var(--pine); /*solid fallback layer*/
   background-size: cover;
   background-position: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.story-card-image .story-explore {
+  color: var(--sage-cream);
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.85;
+  display: block;
+  margin-top: 6px;
+  transition: opacity 0.15s ease-in;
+  position: relative;
+  z-index: 1;
+}
+
+.story-card-image:hover .story-explore {
+  opacity: 1;
 }
 
 .story-card-image:hover {
@@ -543,6 +640,18 @@ img { max-width: 100%; display: block; }
   position: relative;
   z-index: 1;
 }
+
+@media (max-width: 768px) {
+  .story-card-image {
+    aspect-ratio: 16/10;
+    padding: 18px;
+  }
+  .info-card{
+    padding: 20px;
+  }
+}
+
+/*-- Info --*/
 
 .info-grid {
   display: grid;
@@ -568,4 +677,46 @@ img { max-width: 100%; display: block; }
   font-size: 0.95rem;
   line-height: 1.7;
   margin: 0;
+}
+
+/* -- Map In Home-- */
+.map-peek {
+  position: relative;
+  height: 320px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 28px 0;
+}
+
+.map-peek-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: rgba(27, 36, 27, 0);
+  transition: background 0.2s ease;
+}
+
+.map-peek-overlay:hover {
+  background: rgba(27, 36, 27, 0.15);
+}
+
+.map-peek-label {
+  background: var(--pine);
+  color: var(--sage-cream);
+  padding: 0.7em 1.4em;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.map-peek-overlay:hover .map-peek-label {
+  opacity: 1;
+  transform: translateY(0);
 }
