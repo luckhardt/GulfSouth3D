@@ -31,19 +31,48 @@ if (!card) {
 }
 
 const featured = objects.filter((o) => o.storyPathway === card.pathway);
+const allThemes = featured.flatMap((object) => object.themes);
+const uniqueThemes = [...new Set(allThemes)];
 
 return (
-    <div className="container">
-        <Link to="/stories">Back to Stories</Link>
-        <p className="eyebrow">Story Pathway</p>
-        <h1>{card.label}</h1>
-
-        <div className="object-grid">
-            {featured.map((object) =>(
-                <ObjectCard key={object.id} object={object}/>
-            ))}
+    <div>
+        <div className="story-hero" style={{ backgroundImage: `url(/story-images/${card.slug}.jpg)` }}>
+            <div className="story-hero-overlay">
+                <p className="eyebrow">Story Pathway</p>
+                <h1>{card.label}</h1>
+                <p className="story-hero-question">{card.question}</p>
+            </div>
         </div>
-    </div>
+    
+
+        <div className="container story-page">
+            <Link to="/stories">← Back to Stories</Link>
+
+            <p className="story-description">{card.description}</p>
+
+
+            <div className="object-grid">
+                {featured.map((object) => (
+                    <ObjectCard key={object.id} object={object} variant="detailed"/>
+                ))}
+            </div>
+
+                <h2>What This Pathway Reveals</h2>
+
+                <div className="theme-pills">
+                    {uniqueThemes.map((theme) => (
+                        <span key={theme} className="chip">{theme}</span>
+                    ))}
+                </div>
+                
+                <div className="pathway-actions">
+                    <Link to="/stories" className="btn btn-solid">All Stories</Link>
+                    <Link to="/collection" className="btn btn-solid">Browse Collection</Link>
+                    <Link to="/map" className="btn btn-solid">Explore the Map</Link>
+                </div>
+
+            </div>
+        </div>
     );
 }
 

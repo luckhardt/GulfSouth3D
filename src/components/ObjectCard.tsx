@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import type { HeritageObject } from "../types";
 
-function ObjectCard({object}: {object: HeritageObject}) {
+function ObjectCard({ object, variant = "compact" }: { object: HeritageObject; variant?: "compact" | "detailed" }) {
     return (
-        //the syntax used here uses backticks(template literals) to build a string with a variable in it. 
         <Link to={`/collection/${object.slug}`} className="object-card">
             <div className="object-thumb">
                 {object.posterUrl ? (
@@ -19,6 +18,18 @@ function ObjectCard({object}: {object: HeritageObject}) {
                     <span className="chip">{object.locations.primary}</span>
                     <span className="chip">{object.period}</span>
                 </div>
+
+                {variant === "detailed" && (
+                    <>
+                        <p className="object-description">{object.significance}</p>
+                        <div className="object-chips">
+                            {object.themes.map((theme) => (
+                                <span key={theme} className="chip-outline">{theme}</span>
+                            ))}
+                        </div>
+                        <span className="view-model-link">View 3D Model →</span>
+                    </>
+                )}
             </div>
         </Link>
     );

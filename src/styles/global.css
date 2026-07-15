@@ -175,10 +175,165 @@ img { max-width: 100%; display: block; }
 .filter-row input { cursor: pointer; }
 
 /*-- Stories Page-- */
-.story-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin: 28px 0; }
+.story-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+  gap: 20px; 
+  margin: 28px 0; 
+}
 .story-card { display: block; padding: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; color: var(--text); transition: transform 0.15s ease; }
 .story-card:hover { transform: translateY(-3px); }
 .story-explore { color: var(--olive); font-size: 0.9rem; }
+
+.stories-hero {
+  background: var(--pine);
+  padding: 70px clamp(20px, 6vw, 80px);
+  text-align: center;
+}
+
+.stories-hero .eyebrow {
+  color: var(--sage-cream);
+  opacity: 0.85;
+}
+
+.stories-hero h1 {
+  color: var(--sage-cream);
+  max-width: 20ch;
+  margin: 0 auto 20px;
+}
+
+.stories-hero p {
+  color: var(--sage-cream);
+  opacity: 0.9;
+  max-width: 60ch;
+  margin: 0 auto;
+  font-size: 1.05rem;
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: 40px 0;
+}
+
+@media (max-width: 768px) {
+  .stories-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stories-grid .story-card-image {
+  aspect-ratio: 10 / 11;
+}
+
+.story-card-image .eyebrow {
+  color: var(--sage-cream);
+  opacity: 0.7;
+}
+
+.story-card-image h2,
+.story-card-image h3,
+.story-card-image p {
+  position: relative;
+  z-index: 1;
+}
+
+/*--Individual Pages Inside Story--*/
+.story-hero {
+  background-color: var(--pine);
+  background-size: cover;
+  background-position: center;
+  min-height: 60vh;
+  display: flex;
+  align-items: flex-end;
+}
+
+.story-hero-overlay {
+  width: 100%;
+  background: linear-gradient(to top, rgba(27,3,27,0.9), rgba(27,36,27,0.1) 70%);
+  padding: 60px clamp(20px, 6vw, 80px) 50px;
+  color: var(--sage-cream);
+  text-align: left;
+}
+
+.story-hero-question {
+  font-style: italic;
+  font-size: 1.15rem;
+  max-width: 60ch;
+  margin: 12px;
+  opacity: 0.95;
+}
+
+.story-description {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-soft);
+  max-width: 75ch;
+  margin: 32px 0;
+}
+
+.story-hero-overlay .eyebrow {
+  color: var(--sage-cream);
+  opacity: 0.85;
+}
+
+.story-page .object-grid {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 280px));
+  justify-content: start;
+}
+
+.theme-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0 40px;
+}
+
+.pathway-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 40px 0;
+}
+
+/*variant for the Object Card*/
+.chip-outline {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text-soft);
+  padding: 0.25em 0.7em;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.object-description {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  line-height: 1.6;
+  margin: 10px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.view-model-link {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+
+.view-model-link:hover {
+  text-decoration: underline;
+}
 
 /* --About Page-- */
 .team-list { list-style: none; padding: 0; }
