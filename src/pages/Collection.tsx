@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import useScrollDirection from "../hooks/useScrollDirection";
 import type React from "react";
 import ObjectCard from "../components/ObjectCard";
 import FilterGroup from "../components/FilterGroup";
@@ -21,6 +22,7 @@ function Collection() {
     const [types, setTypes] = useState<ObjectType[]>([]);
     const [places, setPlaces] = useState<Place[]>([]);
     const [periods, setPeriods] = useState<Period[]>([]);
+    const hidden = useScrollDirection();
 
 
     //Effect is run once when the page loads and it fetches the data
@@ -28,8 +30,10 @@ function Collection() {
         getObjects().then((data) => {
             setObjects(data);
             setLoading(false);
+            console.log("Total objects fetched: ", objects.length);
         }); 
     }, []);
+
 
     function toggleValue<T>(value: T, setter: React.Dispatch<React.SetStateAction<T[]>>){
         setter((current) => 
@@ -78,7 +82,7 @@ function Collection() {
                         placeholder="Search the collection"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
-                        className="search-input"
+                        className={`search-input search-input-sticky ${hidden ? "search-hidden" : ""}`}
                     />
                     <p className="eyebrow">Showing {visible.length} objects</p>
                     <div className="object-grid">

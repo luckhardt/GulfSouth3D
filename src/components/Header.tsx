@@ -11,12 +11,15 @@ function Header() {
     const [searchOpen, setSearchOpen] = useState(false);
     const [query, setQuery] = useState("");
     const [objects, setObjects] = useState<HeritageObject[]>([]);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const searchRef = useRef<HTMLDivElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         getObjects().then((data) => setObjects(data));
     }, []);
 
+    // Close the search box when clicking outside it
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -29,6 +32,18 @@ function Header() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+    // Close the mobile hamburger menu when clicking outside the header
+    useEffect(() => {
+        function handleClickOutsideMenu(event: MouseEvent) {
+            if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+                setIsMobileMenuOpen(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutsideMenu);
+        return () => document.removeEventListener("mousedown", handleClickOutsideMenu);
+    }, []);
+
     const matches = query.trim() === ""
         ? []
         : objects.filter((object) =>
@@ -39,13 +54,29 @@ function Header() {
         if (pathname === path) {
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
         }
+        setIsMobileMenuOpen(false);
     }
 
     return (
         <header className={`site-header ${hidden ? "header-hidden" : ""}`}>
-            <div className="container header-inner">
+            <div className="container header-inner" ref={headerRef}>
                 <Link className="logo" to="/">Digital Humanities at Southern Miss</Link>
-                <nav className="main-nav">
+
+                <button
+                    className="hamburger-toggle"
+                    aria-label="Toggle menu"
+                    onClick={() => setIsMobileMenuOpen((current) => !current)}
+                >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        {isMobileMenuOpen ? (
+                            <path d="M18 6L6 18M6 6l12 12" />
+                        ) : (
+                            <path d="M3 6h18M3 12h18M3 18h18" />
+                        )}
+                    </svg>
+                </button>
+
+                <nav className={`main-nav ${isMobileMenuOpen ? "mobile-open" : ""}`}>
                     <div className="nav-search" ref={searchRef}>
                         <button
                             className={`search-toggle ${searchOpen ? "search-toggle-hidden" : ""}`}
@@ -76,6 +107,7 @@ function Header() {
                                         onClick={() => {
                                             setQuery("");
                                             setSearchOpen(false);
+                                            setIsMobileMenuOpen(false);
                                         }}
                                     >
                                         {object.title}

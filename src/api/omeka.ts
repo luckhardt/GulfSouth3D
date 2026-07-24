@@ -5,17 +5,22 @@ import { sampleObjects } from "../data/sampleobjects";
 const OMEKA_URL = import.meta.env.VITE_OMEKA_API_URL;
 
 //grabs the first value for a given Dublin Core
-function getElement (item: any, elementName: string): string {
+function getElement(item: any, elementName: string, elementSetName?: string): string {
     const match = item.element_texts?.find(
-        (et: any) => et.element?.name === elementName
-    )
+        (et: any) =>
+            et.element?.name === elementName &&
+            (elementSetName ? et.element_set?.name === elementSetName : true)
+    );
     return match?.text ?? "";
 }
 
 //grabs all the values for a given Dublin Core element
-function getAllElements(item: any, elementName: string): string[] {
+function getAllElements(item: any, elementName: string, elementSetName?: string): string[] {
     return (item.element_texts ?? [])
-        .filter((et: any) => et.element?.name === elementName)
+        .filter((et: any) =>
+            et.element?.name === elementName &&
+            (elementSetName ? et.element_set?.name === elementSetName : true)
+        )
         .map((et: any) => et.text);
 }
 
@@ -72,9 +77,9 @@ async function mapOmekaItem(item: any): Promise<HeritageObject> {
         whyItMatters: getElement(item, "Description"),
         modelUrl: files.modelUrl,
         posterUrl: files.posterUrl,
-        material: getElement(item, "Format"),
+        material: getElement(item, "Format", "Dublin Core"),
         accessionNumber: getElement(item, "Source"),
-        dateDigitized: getElement(item, "Date"),
+        dateDigitized: getElement(item, "Date Digitized", "Item Type Metadata"),
         omekaUrl: `${OMEKA_URL?.replace("/api", "")}/items/show/${item.id}`,
     };
 }

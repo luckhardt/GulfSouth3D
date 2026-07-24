@@ -15,15 +15,17 @@ function App() {
         <BrowserRouter>
             <ScrollToTop />
             <Header />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/collection" element={<Collection />} />
-                <Route path="/collection/:slug" element={<OjectDetail />} />
-                <Route path="/stories" element={<Stories />} />
-                <Route path="/stories/:slug" element={<StoryPathway />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/map" element={<MapPage />} />
-            </Routes>
+            <main id="main-content">
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/collection" element={<Collection />} />
+                    <Route path="/collection/:slug" element={<OjectDetail />} />
+                    <Route path="/stories" element={<Stories />} />
+                    <Route path="/stories/:slug" element={<StoryPathway />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/map" element={<MapPage />} />
+                </Routes>
+            </main>
             <Footer />
         </BrowserRouter>
     );

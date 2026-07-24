@@ -3,9 +3,99 @@ import useAccessibilitySettings from "../hooks/useAccessibilitySettings";
 
 function AccessibilityMenu() {
   const [open, setOpen] = useState(false);
+  const [isReading, setIsReading] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isReadMode, setIsReadMode] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const { theme, setTheme, contrast, setContrast, textSize, setTextSize, motion, setMotion } = useAccessibilitySettings();
 
+  useEffect(() => {
+      // iOS Safari sometimes needs voices "warmed up" before speak() will
+      // actually produce audio on the first call
+      window.speechSynthesis.getVoices();
+  }, []);
+
+  function readPage() {
+    const main = document.getElementById("main-content");
+    if (!main) return;
+
+    const text = main.innerText;
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    utterance.onend = () => {
+      setIsReading(false);
+      setIsPaused(false);
+    };
+    utterance.onerror = () => {
+      setIsReading(false);
+      setIsPaused(false);
+    };
+
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    setIsReading(true);
+    setIsPaused(false);
+  }
+
+  function togglePause() {
+    if (isPaused) {
+      window.speechSynthesis.resume();
+      setIsPaused(false);
+    } else {
+      window.speechSynthesis.pause();
+      setIsPaused(true);
+    }
+  }
+
+  function stopReading() {
+    window.speechSynthesis.cancel();
+    setIsReading(false);
+    setIsPaused(false);
+  }
+
+  // Toggle a body class so CSS can style hoverable/clickable text only
+  // while Read Mode is active
+  useEffect(() => {
+    if (isReadMode) {
+      document.body.classList.add("read-mode");
+    } else {
+      document.body.classList.remove("read-mode");
+    }
+  }, [isReadMode]);
+
+  // While Read Mode is on, one delegated click listener on #main-content
+  // figures out which paragraph/heading was clicked and reads just that
+  useEffect(() => {
+    if (!isReadMode) return;
+
+    function handleReadClick(event: MouseEvent) {
+      const target = event.target as HTMLElement;
+      const readable = target.closest("p, h1, h2, h3");
+      if (!readable) return;
+
+      const text = readable.textContent ?? "";
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.onend = () => {
+        setIsReading(false);
+        setIsPaused(false);
+      };
+      utterance.onerror = () => {
+        setIsReading(false);
+        setIsPaused(false);
+      };
+
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+      setIsReading(true);
+      setIsPaused(false);
+    }
+
+    const main = document.getElementById("main-content");
+    main?.addEventListener("click", handleReadClick);
+    return () => main?.removeEventListener("click", handleReadClick);
+  }, [isReadMode]);
+
+  // Close the dropdown when clicking outside it
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -24,9 +114,15 @@ function AccessibilityMenu() {
         aria-label="Accessibility settings"
         onClick={() => setOpen((current) => !current)}
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="12" cy="4" r="2" />
-          <path d="M19 8l-7 2-7-2M12 10v6M8 21l4-5 4 5" />
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="7" r="1.6" fill="currentColor" stroke="none" />
+          <path
+            d="M6.5 9.5c1.7.9 3.5 1.3 5.5 1.3s3.8-.4 5.5-1.3M12 10.8v3M12 13.8l-2.5 5.5M12 13.8l2.5 5.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+          />
         </svg>
       </button>
 
@@ -106,6 +202,39 @@ function AccessibilityMenu() {
                 onClick={() => setMotion("reduce")}
               >
                 Reduce
+              </button>
+            </div>
+          </div>
+
+          <div className="accessibility-group">
+            <span className="accessibility-label">Read Aloud</span>
+            <div className="accessibility-options">
+              <button
+                className={`accessibility-option ${isReading && !isPaused ? "selected" : ""}`}
+                onClick={readPage}
+                disabled={isReading}
+              >
+                Read Page
+              </button>
+              <button
+                className={`accessibility-option ${isPaused ? "selected" : ""}`}
+                onClick={togglePause}
+                disabled={!isReading}
+              >
+                {isPaused ? "Resume" : "Pause"}
+              </button>
+              <button
+                className="accessibility-option"
+                onClick={stopReading}
+                disabled={!isReading}
+              >
+                Stop
+              </button>
+              <button
+                className={`accessibility-option ${isReadMode ? "selected" : ""}`}
+                onClick={() => setIsReadMode((current) => !current)}
+              >
+                {isReadMode ? "✓" : "Read on Click"}
               </button>
             </div>
           </div>
