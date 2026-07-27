@@ -6,7 +6,7 @@ function ObjectCard({ object, variant = "compact" }: { object: HeritageObject; v
         <Link to={`/collection/${object.slug}`} className="object-card">
             <div className="object-thumb">
                 {object.posterUrl ? (
-                    <img src={object.posterUrl} alt={object.title} className="object-thumb-img" />
+                    <img src={object.posterUrl} alt={object.posterAlt || object.title} className="object-thumb-img" />
                 ) : (
                     <span className="object-thumb-label">3D MODEL</span>
                 )}

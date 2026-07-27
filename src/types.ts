@@ -26,8 +26,11 @@ export interface HeritageObject {
   locations: ObjectLocation;
   significance: string;
   whyItMatters: string;
+  whyUse3D?: string;
   modelUrl: string;
   posterUrl?: string;
+  posterAlt?: string;
+  modelAlt?: string;
   material?: string;
   dimensions?: string;
   accessionNumber?: string;

@@ -233,7 +233,12 @@ html[data-motion="reduce"] *::after {
 body.read-mode #main-content p:hover,
 body.read-mode #main-content h1:hover,
 body.read-mode #main-content h2:hover,
-body.read-mode #main-content h3:hover {
+body.read-mode #main-content h3:hover,
+body.read-mode #main-content h4:hover,
+body.read-mode #main-content dt:hover,
+body.read-mode #main-content dd:hover,
+body.read-mode #main-content li:hover,
+body.read-mode #main-content span:hover {
   background: var(--chip-bg);
   cursor: pointer;
   outline: 2px dashed var(--olive);
@@ -1050,6 +1055,20 @@ body.read-mode #main-content h3:hover {
   text-decoration: none;
 }
 .omeka-link:hover { text-decoration: underline; }
+
+.why-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 32px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .why-row {
+    grid-template-columns: 1fr;
+  }
+}
 
 /*Thumbnail image for object detail page*/
 .object-thumb-img {

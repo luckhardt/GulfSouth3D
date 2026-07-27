@@ -38,17 +38,12 @@ function ObjectDetail() {
       <p className="eyebrow">{object.objectType} · {object.period}</p>
 
       <div className="object-layout">
-        {/* LEFT column: the 3D viewer + Why This Matters below it */}
+        {/* LEFT column: just the 3D viewer */}
         <div className="object-viewer">
-          <ModelViewer src={object.modelUrl} alt={object.title} poster={object.posterUrl} />
-
-          <div className="why-section metadata-panel">
-            <p className="why-heading">Why This Matters</p>
-            <p>{object.whyItMatters}</p>
-          </div>
+          <ModelViewer src={object.modelUrl} alt={object.modelAlt || object.title} poster={object.posterUrl} />
         </div>
 
-        {/* RIGHT column: the info */}
+        {/* RIGHT column: just Object Details */}
         <div className="object-info">
           <div className="metadata-panel">
             <h3 className="metadata-title">Object Details</h3>
@@ -67,6 +62,21 @@ function ObjectDetail() {
             )}
           </div>
         </div>
+      </div>
+
+      {/* NEW row: Why This Matters + Why Use 3D, side by side, half-width each */}
+      <div className="why-row">
+        <div className="why-section metadata-panel">
+          <p className="why-heading">Why This Matters</p>
+          <p>{object.whyItMatters}</p>
+        </div>
+
+        {object.whyUse3D && (
+          <div className="why-section metadata-panel">
+            <p className="why-heading">Why Use 3D</p>
+            <p>{object.whyUse3D}</p>
+          </div>
+        )}
       </div>
     </div>
   );

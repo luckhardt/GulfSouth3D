@@ -3,6 +3,7 @@ import type { Theme, ObjectType, Place, Period, StoryPathway } from '../data/tax
 import { sampleObjects } from "../data/sampleobjects";
 
 const OMEKA_URL = import.meta.env.VITE_OMEKA_API_URL;
+const OMEKA_PUBLIC_URL = "https://digitizedculturalheritageofusmarchive.usmcdh.org";
 
 //grabs the first value for a given Dublin Core
 function getElement(item: any, elementName: string, elementSetName?: string): string {
@@ -29,13 +30,18 @@ function slugify(title: string): string {
     return title.toLowerCase(). trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
-//fetch the item's files and pick out the model and poster files
-async function getFilesForItem(itemId: number): Promise<{ modelUrl: string; posterUrl: string }> {
+//grabs the alt text (stored as Dublin Core Description) for a single file
+function getFileAltText(file: any): string {
+    return file?.element_texts?.find((et: any) => et.element?.name === "Description")?.text ?? "";
+}
+
+//fetch the item's files and pick out the model and poster files, plus each one's alt text
+async function getFilesForItem(itemId: number): Promise<{ modelUrl: string; posterUrl: string; posterAlt: string; modelAlt: string }> {
     const res = await fetch(`${OMEKA_URL}/files?item=${itemId}`);
 
     if(!res.ok) {
         console.error(`Failed to fetch for item ${itemId}: ${res.status}`);
-        return { modelUrl: "", posterUrl: ""};
+        return { modelUrl: "", posterUrl: "", posterAlt: "", modelAlt: "" };
     }
 
     const files = await res.json();
@@ -55,6 +61,8 @@ async function getFilesForItem(itemId: number): Promise<{ modelUrl: string; post
     return {
         modelUrl: toProxy(model?.file_urls?.original ?? ""),
         posterUrl: toProxy(poster?.file_urls?.original ?? ""),
+        posterAlt: getFileAltText(poster),
+        modelAlt: getFileAltText(model),
     };
 }
 
@@ -75,14 +83,18 @@ async function mapOmekaItem(item: any): Promise<HeritageObject> {
         locations: { primary: getElement(item, "Coverage") as Place },
         significance: getElement(item, "Description"),
         whyItMatters: getElement(item, "Description"),
+        whyUse3D: getElement(item, "Description", "Item Type Metadata"),
         modelUrl: files.modelUrl,
         posterUrl: files.posterUrl,
+        posterAlt: files.posterAlt,
+        modelAlt: files.modelAlt,
         material: getElement(item, "Format", "Dublin Core"),
         accessionNumber: getElement(item, "Source"),
         dateDigitized: getElement(item, "Date Digitized", "Item Type Metadata"),
-        omekaUrl: `${OMEKA_URL?.replace("/api", "")}/items/show/${item.id}`,
+        omekaUrl: `${OMEKA_PUBLIC_URL}/items/show/${item.id}`,
     };
 }
+
 //Public API
 
 export async function getObjects(): Promise<HeritageObject[]> {
