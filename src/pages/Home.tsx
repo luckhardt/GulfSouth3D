@@ -35,10 +35,9 @@ function Home() {
       <section className="hero">
         <div className="hero-overlay">
           <p className="hero-eyebrow">University of Southern Mississippi · Center for Digital Humanities</p>
-          <h1 className="hero-title">digitizing the cultural heritage of south mississippi</h1>
+          <h1 className="hero-title">Digitizing the Cultural Heritage of South Mississippi</h1>
           <p className="hero-subtitle">
-            3D models of artifacts, buildings, and public art — preserved in
-            partnership with the communities who hold their history.
+            Discover history in 3D
           </p>
           <div className="hero-buttons">
             <Link to="/stories" className="btn btn-solid">Explore the Stories</Link>
@@ -51,27 +50,29 @@ function Home() {
       <section className="container">
         <div className="info-grid">
           <div className="info-card">
-            <h3>What is this project?</h3>
+            <h3>What is Cultural Heritage?</h3>
             <p>
-              {/* Temp*/}GulfSouth3D is a multi-year effort to create high-fidelity 3D scans
-                of cultural heritage objects from South Mississippi — made freely
-                available to researchers, educators, and the public.
+              Cultural heritage includes the objects, places, landscapes, artworks, and records through which people preserve and interpret the past. Not only does it include official historic sites and museum objects, but also ordinary things kept by families, religious organizations, veterans, alumni, and local communities. Cultural heritage matters because it shows how people make meaning from the places they live, the things they keep, and the histories they choose to remember.
               </p>
+            <div className="quote">
+              <p>“The past is never dead. It’s not even past.” </p>
+              <p>- William Faulkner, Requiem for a Nun</p>
+            </div>
           </div>
           <div className="info-card">
             <h3>Why South Mississippi?</h3>
             <p>
-              {/* Temp */}The Gulf Coast, Piney Woods, and Natchez regions hold layered
-              histories — Indigenous, military, civic, and everyday — that remain
-              underrepresented in national digitization efforts.
+              Like all histories, South Mississippi’s cultural heritage survives in fragments: objects kept, buildings preserved, archaeological traces recovered, and artworks placed in public view. Studied together, this material culture shows how regional history is made and survives through memory, place, and connection. Likewise, it also shows how regional history can connect to larger national and global historical processes.
             </p>
+            <div className="quote">
+              <p>“My grandmothers are full of memories.” </p>
+              <p>-Margaret Walker, “Lineage”</p>
+            </div>
           </div>
           <div className="info-card">
             <h3>Why 3D cultural Heritage?</h3>
             <p>
-              {/* Temp */}3D models capture surface detail that photographs miss, support
-              remote research and teaching, and let communities engage with
-              objects that may be held far from home.
+              A 3D model changes how we encounter the past. We can turn an object, examine its surface, or see marks of use, age, or damage and repair. Many historical objects are fragile and not suitable for handling. 3D models let us encounter them. For buildings and public art, 3D helps us understand its scale and the relationship between a site and its surroundings. These models are not meant to replace the original objects or places. They are another way to study them.
             </p>
           </div>
         </div>

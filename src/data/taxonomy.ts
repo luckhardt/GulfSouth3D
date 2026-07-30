@@ -5,7 +5,7 @@ export const STORY_PATHWAYS = [
   "Community Memory",
   "Historic Buildings",
   "Archaeology",
-  "Public Art",
+  "Public and Decorative Art",
 ] as const;
 export type StoryPathway = (typeof STORY_PATHWAYS)[number];
 
@@ -65,34 +65,34 @@ export const STORY_CARDS: {
   pathway: StoryPathway;
   slug: string;
   question: string;
-  description: string;
+  teaser: string;
 }[] = [
   {
     label: "Community Memory",
     pathway: "Community Memory",
     slug: "community-memory",
-    question: "What objects survive to tell stories of everyday life, faith, and resistance?",
-    description: "South Mississippi's communities have long preserved meaning through the objects of daily life — church bells, mess kits, woven baskets, hotel keys. This pathway traces the material threads of faith, labor, and resistance across Hattiesburg, the Gulf Coast, and beyond. Digitizing these objects in 3D allows us to examine wear patterns, repairs, and maker's marks invisible in photographs.",
+    question: "Whose memory does this object help preserve? ",
+    teaser: "From church bells to mess kits, the objects of daily life carry the weight of South Mississippi's communities — their faith, labor, and resilience across generations.",
   },
   {
     label: "Historic Buildings",
     pathway: "Historic Buildings",
     slug: "historic-buildings",
-    question: "How do buildings record South Mississippi's social and architectural history?",
-    description: "{/* Temp */} From coastal cottages to institutional halls, the region's buildings hold layered histories of construction, adaptation, and reuse. This pathway follows the architectural record across changing communities and eras.",
+    question: "How does this place shape the region’s story? ",
+    teaser: "Buildings hold more than walls and rooflines — they record the social forces, communities, and decisions that shaped South Mississippi across centuries of change.",
   },
   {
     label: "Archaeology",
     pathway: "Archaeology",
     slug: "archaeology",
-    question: "What do excavated objects reveal about Indigenous and colonial pasts?",
-    description: "{/* Temp */} Excavated fragments and tools offer a material record older than any written account. This pathway traces what the ground itself preserves about the region's earliest inhabitants and the changes that followed.",
+    question: "What can these material traces tell us about lives not fully preserved in written records? ",
+    teaser: "Beneath the surface of South Mississippi lies a material record older than any written account — fragments that speak to the region's earliest inhabitants and the upheavals that followed.",
   },
   {
-    label: "Public Art",
-    pathway: "Public Art",
+    label: "Public and Decorative Art",
+    pathway: "Public and Decorative Art",
     slug: "public-art",
     question: "How does public art reflect community values and contested histories?",
-    description: "{/* Temp */} Murals, sculptures, and monuments shape how communities remember and represent themselves in public space. This pathway examines what public art reveals — and sometimes conceals — about shared and contested histories.",
+     teaser: "Murals, monuments, and sculptures shape how communities see themselves in public space — celebrating some histories while obscuring others.",
   },
 ];

@@ -47,44 +47,50 @@ function MapPage() {
     getObjects().then((data) => setObjects(data));
   }, []);
 
-  return (
-    <div className="container">
-      <p className="eyebrow">Geography</p>
-      <h1>Explore by Place</h1>
-      <p className="page-subtitle">Objects span Hattiesburg, the Gulf Coast, Natchez, and the Piney Woods.</p>
+ return (
+    <div>
+        {/* Full-width hero — outside container so it bleeds edge to edge */}
+        <div className="map-hero">
+            <p className="eyebrow">Geography</p>
+            <h1>Explore by Place</h1>
+            <p className="page-subtitle">Objects span Hattiesburg, the Gulf Coast, Natchez, and the Piney Woods.</p>
+        </div>
 
-      <div className="collection-layout">
-        <aside className="filter-sidebar">
-          <h2 className="filter-heading">Places</h2>
-          <ul className="place-list">
-            {PLACES.map((place) => {
-              const count = objects.filter((o) => o.locations.primary === place).length;
-              return (
-                <li key={place}>
-                  <button
-                    className={`place-item ${selectedPlace === place ? "active" : ""}`}
-                    onClick={() => setSelectedPlace(place)}
-                  >
-                    <span>{place}</span>
-                    <span className="place-count">{count}</span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </aside>
+        {/* Map content — inside container */}
+        <div className="container">
+            <div className="collection-layout">
+                <aside className="filter-sidebar">
+                    <h2 className="filter-heading">Places</h2>
+                    <ul className="place-list">
+                        {PLACES.map((place) => {
+                            const count = objects.filter((o) => o.locations.primary === place).length;
+                            return (
+                                <li key={place}>
+                                    <button
+                                        className={`place-item ${selectedPlace === place ? "active" : ""}`}
+                                        onClick={() => setSelectedPlace(place)}
+                                    >
+                                        <span>{place}</span>
+                                        <span className="place-count">{count}</span>
+                                    </button>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </aside>
 
-        <MapContainer center={[31.2, -89.5]} zoom={7} className="map-container">
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution="&copy; OpenStreetMap contributors"
-          />
-          <FlyTo place={selectedPlace} />
-          {spreadOverlapping(objects).map((object) => (
-            <ObjectMarker key={object.id} object={object} position={object.position}/>
-          ))}
-        </MapContainer>
-      </div>
+                <MapContainer center={[31.2, -89.5]} zoom={7} className="map-container">
+                    <TileLayer
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        attribution="&copy; OpenStreetMap contributors"
+                    />
+                    <FlyTo place={selectedPlace} />
+                    {spreadOverlapping(objects).map((object) => (
+                        <ObjectMarker key={object.id} object={object} position={object.position}/>
+                    ))}
+                </MapContainer>
+            </div>
+        </div>
     </div>
   );
 }

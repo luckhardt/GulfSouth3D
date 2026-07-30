@@ -48,7 +48,7 @@ function Footer() {
                     <p>
                         Center for Digital Humanities<br />
                         University of Southern Mississippi<br />
-                        118 College Drive<br />
+                        118 College Drive, #5047<br />
                         Hattiesburg, MS 39406
                     </p>
                 </div>

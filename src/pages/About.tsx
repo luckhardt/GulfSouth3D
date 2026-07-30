@@ -1,25 +1,71 @@
-// The Project team: a small local array that is rendered into a list.
-//the names and roles can be edited
+import { useState } from "react";
+
+
+// TEAM DATA
+
 const team = [
-    { name: "Dr. Courtney Luckhardt", role: "Principal Investigator" },
-    { name: "Luke Bynum", role: "Aerial Lead & Co-Production Lead" },
-    { name: "Gabbie Bankston", role: "Tabletop Lead & Co-Production Lead" },
-    { name: "Emily Zylka", role: "Senior Processing Lead" },
-    { name: "Madaline Ponthieux", role: "Metadata Lead" },
-    { name: "Sushil Pandey", role: "Web Developer" },
-//  { name: "abcd", role: "abcd" },
+    { name: "Dr. Courtney Luckhardt", title: "Principal Investigator", role: "Associate Professor of History · Director, Center for Digital Humanities" },
+    { name: "Gabrielle Bankston", title: "Tabletop Photogrammetry Lead", role: "Graduate Student in History" },
+    { name: "Luke Bynum", title: "UAV Photogrammetry Lead", role: "Graduate Student in History" },
+    { name: "Madaleine Ponthieux", title: "Metadata Lead", role: "Graduate Student in English" },
+    { name: "Emily Zylka", title: "Photogrammetry Processing Lead", role: "Graduate Student in Anthropology" },
+    { name: "Mira Sleasman", title: "Archaeological Consultant", role: "Graduate Student in Anthropology" },
+    { name: "Sushil Pandey", title: "Digital Architect", role: "Undergraduate Student in Computer and Information Science" },
+//  { name: "abcd", title: "abcd", role: "abcd" },
 /*In case if anyone is missed use the above layout to add*/
 ];
 
+
+
+// Computes initials from a name, skipping titles like "Dr." that end with a period
 function getInitials(name: string): string {
     const words = name.split(" ").filter((word) => !word.endsWith("."));
     return words.map((word) => word[0]).join("").toUpperCase();
 }
 
-//The texts below can be edited but proceed with CAUTION
+// Converts a name to a slug for use in image paths
+// e.g. "Dr. Courtney Luckhardt" -> "dr-courtney-luckhardt"
+function slugifyName(name: string): string {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
+// 
+// TEAM CARD COMPONENT
+// Each card manages its own image-load state independently.
+// If the headshot fails to load (file missing, wrong name, etc.),
+// it falls back to the initials avatar automatically.
+function TeamCard({ member }: { member: { name: string; title: string; role: string } }) {
+    const [imgFailed, setImgFailed] = useState(false);
+    const slug = slugifyName(member.name);
+
+    return (
+        <li>
+            <div className="team-avatar">
+                {!imgFailed ? (
+                    <img
+                        src={`/team/${slug}.jpg`}
+                        alt={member.name}
+                        className="team-avatar-img"
+                        onError={() => setImgFailed(true)}
+                    />
+                ) : (
+                    <span>{getInitials(member.name)}</span>
+                )}
+            </div>
+            <div>
+                <span className="team-name">{member.name}</span>
+                <span className="team-title">{member.title}</span>
+                <span className="team-role">{member.role}</span>
+            </div>
+        </li>
+    );
+}
+
+// ABOUT PAGE
 function About() {
     return (
         <div>
+            {/* Dark hero header */}
             <div className="about-hero">
                 <p className="eyebrow">About</p>
                 <h1>Center for Digital Humanities</h1>
@@ -27,104 +73,112 @@ function About() {
             </div>
 
             <div className="container">
+
+                {/* Our Mission */}
                 <div className="about-section">
-                    <h2>Our Mission</h2>
+                    <h2>Purpose of Project</h2>
                     <p>
-                        {/* Temp */}The Center for Digital Humanities at the University of Southern Mississippi advances the preservation, study, and public accessibility of cultural heritage across the Gulf South. Through photogrammetry, structured-light 3D scanning, and community-engaged archival practice, we create high-fidelity digital surrogates of objects, buildings, and public art that would otherwise remain inaccessible to researchers, educators, and the descendant communities who hold these histories. Every model we produce captures surface detail, wear, and craftsmanship invisible to conventional photography, opening these objects to forms of study — measurement, comparison, close visual analysis — that were previously only possible in person.
-                        This archive represents a multi-year collaborative effort with tribal nations, municipal archives, private collectors, and community organizations across South Mississippi. We believe that digitization is not a neutral technical act; it is an act of stewardship that carries responsibility to the people and places represented. Every object included in this collection has been digitized with the informed consent and active participation of the communities from which it originates, and interpretive text is developed collaboratively rather than imposed from outside.
-                        Our work is guided by the conviction that the region's material history — its churches, its shipyards, its military installations, its everyday objects of labor and worship — deserves the same scholarly attention and public visibility routinely afforded to more widely studied regions. By making these models freely available under open licensing, we aim to support research, classroom teaching, museum interpretation, and community remembrance alike, ensuring that South Mississippi's layered heritage remains legible — and touchable, in a digital sense — for generations of researchers and residents to come.
+                        Digitizing the Cultural Heritage of South Mississippi creates 3D models of selected objects, buildings, archaeological materials, and public artworks from across the region. The project preserves these models with structured metadata and presents them through a public website that connects objects and places to stories about memory, community, material culture, and regional history. Its purpose is not simply to make digital copies, but to use 3D modeling as a way to study form, scale, surface, place, context to tell stories about the people and histories of South Mississippi while building a reusable workflow for student training, archival documentation, and public digital scholarship.
                     </p>
                 </div>
 
+                {/* Why South Mississippi */}
                 <div className="about-section">
-                    <h2>Why South Mississippi?</h2>
+                    <h2>About the Center for Digital Humanities</h2>
                     <p>
-                        {/* Temp */}The Gulf South is one of the most culturally layered regions of North America, shaped by overlapping Indigenous nations, French and Spanish colonial regimes, the forced migration of enslaved Africans, and successive waves of Vietnamese, Croatian, Cajun, and other immigrant communities. This palimpsest of peoples and practices has produced a material record of extraordinary density — one that national heritage digitization programs have only begun to address.
-                        South Mississippi in particular occupies a geographic and cultural threshold: where the Piney Woods meet the coastal plain, where the Mississippi River's influence gives way to the sound and the sea. Archaeological sites along the Natchez Trace, shell middens in the Mississippi Sound, timber camps in the longleaf pine belt, and African American congregational archives in Hattiesburg all speak to histories that national narratives routinely bypass in favor of better-resourced, more heavily studied regions.
-                        Military history compounds this density: Camp Shelby's role in mobilizing tens of thousands of WWI and WWII draftees, coastal defense installations, and the lighthouses that guided maritime traffic along a historically dangerous coastline all leave behind material traces scattered across small museums, private collections, and community archives with limited capacity for professional conservation or digitization.
-                        The Center for Digital Humanities is committed to filling that gap with rigorous, community-centered digital scholarship — treating South Mississippi not as a peripheral footnote to national history, but as a region whose material culture merits sustained, careful, and collaborative study in its own right.                    </p>
+                        The Center for Digital Humanities (CDH) is an interdisciplinary lab that supports students, faculty, staff, and community partners in the exploration of digital methods to study, preserve, and share humanities research. We offer consulting and technical expertise for digital projects, host workshops and conferences, and offer courses for both undergraduate and graduate students. 
+                    </p>
                 </div>
 
+                {/* Our Four Pillars */}
                 <div className="about-section">
                     <h2>Our Four Pillars</h2>
                     <div className="pillars-grid">
                         <div className="pillar-card">
                             <div className="pillar-icon">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                                </svg>
                             </div>
                             <h3>3D Digitization</h3>
-                            <p>{/* Temp */}We use photogrammetry and structured-light scanning to capture sub-millimeter surface detail, enabling researchers worldwide to study objects in dimensions previously unavailable.</p>
+                            <p>We use photogrammetry and structured-light scanning to capture sub-millimeter surface detail, enabling researchers worldwide to study objects in dimensions previously unavailable.</p>
                         </div>
                         <div className="pillar-card">
                             <div className="pillar-icon">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
                             </div>
                             <h3>Community Partnership</h3>
-                            <p>{/* Temp */}Every digitization project begins with community consultation. Tribal nations, local historical societies, and descendant communities guide what we digitize and how it is described.</p>
+                            <p>Every digitization project begins with community consultation. Tribal nations, local historical societies, and descendant communities guide what we digitize and how it is described.</p>
                         </div>
                         <div className="pillar-card">
                             <div className="pillar-icon">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 3v18M8 6l4-3 4 3M5 12h2a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM17 12h2a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/></svg>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="2" y1="12" x2="22" y2="12"/>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                </svg>
                             </div>
                             <h3>Open Scholarship</h3>
-                            <p>{/* Temp */}3D models, metadata, and contextual descriptions are made freely available under Creative Commons licensing, supporting open-access research and education.</p>
+                            <p>3D models, metadata, and contextual descriptions are made freely available under Creative Commons licensing, supporting open-access research and education.</p>
                         </div>
                         <div className="pillar-card">
                             <div className="pillar-icon">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                </svg>
                             </div>
                             <h3>Regional Focus</h3>
-                            <p>{/* Temp */}Our collection centers on the Gulf South — a region of extraordinary cultural complexity that has been chronically underrepresented in national heritage digitization programs.</p>
+                            <p>Our collection centers on the Gulf South — a region of extraordinary cultural complexity that has been chronically underrepresented in national heritage digitization programs.</p>
                         </div>
                     </div>
                 </div>
 
+                {/* Project Team */}
                 <div className="about-section">
                     <h2>Project Team</h2>
                     <ul className="team-list">
                         {team.map((member) => (
-                            <li key={member.name}>
-                                <div className="team-avatar">{getInitials(member.name)}</div>
-                                <div>
-                                    <span className="team-name">{member.name}</span>
-                                    <span className="team-role">{member.role}</span>
-                                </div>
-                            </li>
+                            <TeamCard key={member.name} member={member} />
                         ))}
                     </ul>
                 </div>
 
+                {/* Rights & Stewardship */}
                 <div className="about-section">
-                    <h2>Rights & Stewardship</h2>
+                    <h2>Rights and Reuse</h2>
                     <p>
-                        {/* Temp */}Descriptive metadata and interpretive text on this site are published under a Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0) license. 3D model files are released under CC BY-NC-SA 4.0. Rights in individual objects remain with originating institutions, descendant communities, or other rights holders as noted in each record's provenance statement.
+                        The materials presented in Digitizing the Cultural Heritage of South Mississippi include 3D models, photographs, maps, metadata, and interpretive text created through partnerships among the Center for Digital Humanities, holding institutions, community partners, and project contributors.
                     </p>
                     <p>
-                        {/* Temp */}Community consent is foundational to our digitization workflow. Before any object connected to a living community is published, we seek explicit written approval from designated community representatives. If you believe an object has been published without adequate consent, or wish to request a correction, contact us at dh@usm.edu.
+                        Rights and permissions vary by object and site. Some objects are held by institutional collections; some are associated with public places, community organizations, or partner sites; and some materials may carry cultural, ethical, or access restrictions. The inclusion of a 3D model on this website does not mean that the original object, site, image, or model may be downloaded, altered, reproduced, or used commercially. Each object page includes available rights and reuse information, including the holding institution or source, digitization method, model creator, and link to the full archival record. Users should consult the individual record before reproducing, downloading, publishing, teaching with, or otherwise reusing project materials.
+                    </p>
+                    <p>
+                        Unless otherwise stated, the interpretive text created for this website may be cited for educational and research purposes with attribution to Digitizing the Cultural Heritage of South Mississippi and the University of Southern Mississippi Center for Digital Humanities. For permissions questions, citation guidance, or reuse requests, please contact the project team through the Center for Digital Humanities. 
                     </p>
                 </div>
 
+                {/* Community Partners */}
                 <div className="about-section">
                     <h2>Community Partners</h2>
                     <div className="partner-pills">
-                        <span className="partner-pill">
-                            {/* Temp */}Mississippi Band of Choctaw Indians
-                        </span>
-                        <span className="partner-pill">
-                            {/* Temp */}Biloxi Maritime Heritage Foundation
-                        </span>
-                        <span className="partner-pill">
-                            {/* Temp */}Natchez Historical Society
-                        </span>
-                        <span className="partner-pill">
-                            {/* Temp */}Camp Shelby Military Museum
-                        </span>
+                        <span className="partner-pill">Mississippi Band of Choctaw Indians</span>
+                        <span className="partner-pill">Biloxi Maritime Heritage Foundation</span>
+                        <span className="partner-pill">Natchez Historical Society</span>
+                        <span className="partner-pill">Camp Shelby Military Museum</span>
                     </div>
                 </div>
 
+                {/* Connect With Us */}
                 <div className="about-section">
                     <h2>Connect With Us</h2>
-                    <p>Follow the Center for Updates on new digitization projects, community partnership and 3D Model Releases.</p>
+                    <p>Follow the center for updates on new digitization projects, community partnerships, and 3D model releases.</p>
                     <div className="connect-grid">
                         <a href="https://www.instagram.com/dhatsouthernmiss/" target="_blank" rel="noopener noreferrer" className="connect-card">
                             <div className="connect-icon" style={{ background: "linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)" }}>
@@ -136,7 +190,6 @@ function About() {
                             </div>
                             <span className="connect-arrow">↗</span>
                         </a>
-
                         <a href="https://www.facebook.com/DHatUSM/" target="_blank" rel="noopener noreferrer" className="connect-card">
                             <div className="connect-icon" style={{ background: "#1877F2" }}>
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 1.913-.287 1.754h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.628-5.373-12-12-12s-12 5.372-12 12c0 6.135 4.604 11.194 10.101 11.647z"/></svg>
@@ -163,13 +216,14 @@ function About() {
                             </div>
                             <div className="connect-info">
                                 <span className="connect-platform">YouTube</span>
-                                <span className="connect-handle">Center for Digital Humanities at USM</span>
+                                <span className="connect-handle">USM Center for Digital Humanities</span>
                             </div>
                             <span className="connect-arrow">↗</span>
                         </a>
                     </div>
                 </div>
 
+                {/* Contact */}
                 <div className="about-section">
                     <h2>Contact</h2>
                     <div className="contact-panel">
@@ -184,11 +238,11 @@ function About() {
                         </div>
                         <div className="contact-item">
                             <div className="contact-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                             </div>
                             <div>
                                 <span className="contact-label">Phone</span>
-                                <span className="contact-value">{/* Temp */}(601) 266-4321</span>
+                                <span className="contact-value">(601) 266-4321</span>
                             </div>
                         </div>
                         <div className="contact-item">
@@ -202,8 +256,10 @@ function About() {
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     );
 }
+
 export default About;

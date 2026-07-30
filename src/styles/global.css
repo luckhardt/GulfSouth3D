@@ -480,7 +480,10 @@ body.read-mode #main-content span:hover {
 .story-explore { color: var(--olive); font-size: 0.9rem; }
 
 .stories-hero {
-  background: var(--pine);
+  background:
+    linear-gradient(rgba(27,36,27,0.62), rgba(27,36,27,0.62)),
+    url("/stories-hero.jpg") center / cover no-repeat,
+    var(--pine);
   padding: 70px clamp(20px, 6vw, 80px);
   text-align: center;
 }
@@ -545,7 +548,7 @@ body.read-mode #main-content span:hover {
 
 .story-hero-overlay {
   width: 100%;
-  background: linear-gradient(to top, rgba(27,3,27,0.9), rgba(27,36,27,0.1) 70%);
+  background: linear-gradient(to top, rgba(27,36,27,0.9), rgba(27,36,27,0.1) 70%);
   padding: 60px clamp(20px, 6vw, 80px) 50px;
   color: var(--sage-cream);
   text-align: left;
@@ -564,7 +567,8 @@ body.read-mode #main-content span:hover {
   line-height: 1.8;
   color: var(--text-soft);
   max-width: 75ch;
-  margin: 32px 0;
+  margin: auto;
+  text-align: justify;
 }
 
 .story-hero-overlay .eyebrow {
@@ -589,6 +593,128 @@ body.read-mode #main-content span:hover {
   gap: 16px;
   flex-wrap: wrap;
   margin: 40px 0;
+}
+
+.pathway-quote-attribution {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  margin: 0;
+}
+
+.pathway-section {
+  margin: 40px 0;
+}
+
+.pathway-section h2 {
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.pathway-section p {
+  color: var(--text-soft);
+  line-height: 1.8;
+  max-width: 75ch;
+}
+
+/* Single quote — centered-left */
+.pathway-quotes-single {
+  margin: 40px auto;
+  max-width: 600px;
+}
+
+/* Two quotes side by side — mid-left and mid-right */
+.pathway-quotes-double {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin: 40px 0;
+}
+
+.pathway-quote {
+  border-left: 3px solid var(--olive);
+  padding-left: 20px;
+}
+
+.pathway-quote-text {
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--text);
+  line-height: 1.7;
+  margin: 0 0 8px;
+}
+
+.pathway-quote-attribution {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .pathway-quotes-double {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+@media (max-width: 768px) {
+  /* Story description — full width, slightly smaller text */
+  .story-description {
+    max-width: 100%;
+    font-size: 0.95rem;
+    margin: 24px 0;
+  }
+
+  /* Two quotes stack vertically on mobile */
+  .pathway-quotes-double {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* Single quote takes full width on mobile */
+  .pathway-quotes-single {
+    max-width: 100%;
+    margin: 24px 0;
+  }
+
+  /* Quote text slightly smaller on mobile */
+  .pathway-quote-text {
+    font-size: 0.95rem;
+  }
+
+  /* Object grid — center cards on mobile */
+  .story-page .object-grid {
+    grid-template-columns: 1fr;
+    justify-content: center;
+  }
+
+  /* Hero question text smaller on mobile */
+  .story-hero-question {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+
+  /* Hero overlay padding tighter on mobile */
+  .story-hero-overlay {
+    padding: 40px 20px 32px;
+  }
+
+  /* Pathway actions stack vertically on very narrow screens */
+  .pathway-actions {
+    flex-direction: column;
+  }
+
+  .pathway-actions a {
+    text-align: center;
+  }
+
+  /* Info cards padding tighter on mobile */
+  .info-card {
+    padding: 20px;
+  }
+}
+@media (max-width: 768px) {
+  .story-hero {
+    min-height: 45vh;
+  }
 }
 
 /*variant for the Object Card*/
@@ -630,8 +756,72 @@ body.read-mode #main-content span:hover {
 }
 
 /* --About Page-- */
-.team-list { list-style: none; padding: 0; }
-.team-list li { padding: 8px 0; border-bottom: 1px solid var(--line); }
+.team-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.team-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.team-avatar {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--pine);
+  color: var(--sage-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.team-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.team-title {
+  display: block;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.team-role {
+  display: block;
+  color: var(--text-soft);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.team-name {
+  display: block;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 2px;
+  white-space: nowrap;
+}
 
 .about-hero {
   background: var(--pine);
@@ -673,52 +863,6 @@ body.read-mode #main-content span:hover {
 
 .about-section-centered p {
   text-align: justify;
-}
-
-.team-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
-}
-
-.team-list li {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 16px 18px;
-}
-
-.team-avatar {
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--pine);
-  color: var(--sage-cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.85rem;
-}
-
-.team-name {
-  display: block;
-  color: var(--text);
-  font-weight: 600;
-}
-
-.team-role {
-  display: block;
-  color: var(--text-soft);
-  font-size: 0.85rem;
-  margin-top: 2px;
 }
 
 .pillars-grid {
@@ -893,6 +1037,29 @@ body.read-mode #main-content span:hover {
 .custom-map-pin {
   background: transparent;
   border: none;
+}
+
+.map-hero {
+  background:
+    linear-gradient(rgba(27,36,27,0.35), rgba(27,36,27,0.35)),
+    url("/map-hero.jpg") center / cover no-repeat,
+    var(--pine);
+  padding: 80px clamp(20px, 6vw, 80px) 60px;
+}
+
+.map-hero .eyebrow { 
+  color: var(--sage-cream); 
+}
+
+.map-hero h1 { 
+  color: var(--sage-cream); 
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.map-hero .page-subtitle { 
+  color: var(--sage-cream);
+  max-width: 60ch;
 }
 
 /*FlyTo For Maps*/
@@ -1520,5 +1687,80 @@ body.read-mode #main-content span:hover {
 
   .search-input-expand.open {
     width: 100%;
+  }
+}
+
+/*This is for all Quotes*/
+
+.quote {
+  margin-top: 20px;
+  border-left: 2px solid var(--olive);
+  padding-left: 20px;
+  max-width: 480px;
+  opacity: 0.85;
+  text-align: left;
+}
+
+.quote p {
+  font-size: 0.95rem;
+  color: var(--text-soft);
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+
+/*
+This is the new stories page CSS. There is a stories CSS preciously I've not had time to touch it.
+*/
+
+.stories-pathway {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  margin: 48px 0;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--line);
+}
+
+.stories-pathway:last-child {
+  border-bottom: none;
+}
+
+.stories-pathway-text {
+  padding: 20px;
+}
+
+.stories-pathway-text .eyebrow {
+  color: var(--olive);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.stories-pathway-text h2 {
+  color: var(--pine);
+  font-size: 1.6rem;
+  margin: 0 0 16px;
+}
+
+.stories-pathway-text p {
+  color: var(--text-soft);
+  line-height: 1.8;
+  margin: 0 0 24px;
+}
+
+.stories-pathway-text .btn {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .stories-pathway {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .stories-pathway.reverse {
+    direction: ltr;
   }
 }

@@ -15,28 +15,43 @@ function Stories() {
             </div>
 
             <div className="container">
-                <div className="stories-grid">
-                    {STORY_CARDS.map((card) => (
-                        <Link
-                            key={card.slug}
-                            to={`/stories/${card.slug}`}
-                            className="story-card-image"
-                            style={{ backgroundImage: `url(/story-images/${card.slug}.jpg)` }}
-                        >
-                            <div>
-                                <span className="eyebrow">{card.label}</span>
-                                <h2>{card.question}</h2>
-                                <span className="story-explore">Explore →</span>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
+                {STORY_CARDS.map((card, index) => (
+                <div
+                    key={card.slug}
+                    className={`stories-pathway ${index % 2 !== 0 ? "reverse" : ""}`}
+                    style={{ direction: index % 2 !== 0 ? "rtl" : "ltr" }}
+                >
+                    {/* Image card — same as before, just inside the grid now */}
+                    <Link
+                        to={`/stories/${card.slug}`}
+                        className="story-card-image"
+                        style={{ backgroundImage: `url(/story-images/${card.slug}.jpg)` }}
+                    >
+                        <div>
+                            <span className="eyebrow">{card.label}</span>
+                            <h2>{card.question}</h2>
+                            <span className="story-explore">Explore →</span>
+                        </div>
+                    </Link>
 
-                <p style={{ marginTop: 32, textAlign: "center" }}>
-                    <Link to="/collection">Prefer to browse by object? View the full collection →</Link>
-                </p>
+                    {/* Text block — alternates sides via rtl/ltr trick */}
+                    <div className="stories-pathway-text" style={{ direction: "ltr" }}>
+                        <span className="eyebrow">{card.label}</span>
+                        <h2>{card.label}</h2>
+                        <p>{card.teaser}</p>
+                        <Link to={`/stories/${card.slug}`} className="btn btn-solid">
+                            Explore {card.label} →
+                        </Link>
+                    </div>
+                </div>
+             ))}
+
+             <p style={{ marginTop: 32, textAlign: "center" }}>
+                <Link to="/collection">Prefer to browse by object? View the full collection →</Link>
+             </p>
             </div>
         </div>
+
     );
 }
 
