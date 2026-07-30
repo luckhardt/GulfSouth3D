@@ -15,7 +15,17 @@ const team = [
 /*In case if anyone is missed use the above layout to add*/
 ];
 
-
+const partners = [
+    { name: "McCain Library and Archives", slug: "mccain-library" },
+    { name: "USM Center for Veterans, Service Members, and Families", slug: "usm-veterans" },
+    { name: "Southern Miss Archaeology Lab", slug: "archaeology-lab" },
+    { name: "100 Men Hall, Bay St. Louis", slug: "100-men-hall" },
+    { name: "Bay Street Presbyterian Church, Hattiesburg", slug: "bay-street-presbyterian" },
+    { name: "Mississippi Department of Archives and History", slug: "mdah" },
+    { name: "Mississippi Department of Transportation", slug: "mdot" },
+    { name: "Our Lady of the Gulf Catholic Church, Bay St. Louis", slug: "our-lady-gulf" },
+    { name: "Temple B'nai Israel, Hattiesburg", slug: "temple-bnai-israel" },
+];
 
 // Computes initials from a name, skipping titles like "Dr." that end with a period
 function getInitials(name: string): string {
@@ -163,15 +173,37 @@ function About() {
                         Unless otherwise stated, the interpretive text created for this website may be cited for educational and research purposes with attribution to Digitizing the Cultural Heritage of South Mississippi and the University of Southern Mississippi Center for Digital Humanities. For permissions questions, citation guidance, or reuse requests, please contact the project team through the Center for Digital Humanities. 
                     </p>
                 </div>
+                <div className="about-section">
+                    <h2>Methodology</h2>
+                    <p>Learn more about how these 3D models were made — the capture methods, equipment, and decisions behind the digitization process.</p>
+                    <a href="/methods" target="_blank" rel="noopener noreferrer" className="btn btn-solid">
+                        Read Our Methods →
+                    </a>
+                </div>
 
                 {/* Community Partners */}
                 <div className="about-section">
                     <h2>Community Partners</h2>
-                    <div className="partner-pills">
-                        <span className="partner-pill">Mississippi Band of Choctaw Indians</span>
-                        <span className="partner-pill">Biloxi Maritime Heritage Foundation</span>
-                        <span className="partner-pill">Natchez Historical Society</span>
-                        <span className="partner-pill">Camp Shelby Military Museum</span>
+                    <div className="partners-grid">
+                        {partners.map((partner) => (
+                            <div key={partner.slug} className="partner-card">
+                                <div className="partner-logo">
+                                    <img
+                                        src={`/partners/${partner.slug}.jpg`}
+                                        alt={partner.name}
+                                        onError={(e) => {
+                                            e.currentTarget.style.display = 'none';
+                                            const placeholder = e.currentTarget.nextElementSibling as HTMLElement;
+                                            if (placeholder) placeholder.style.display = 'flex';
+                                        }}
+                                    />
+                                    <span className="partner-logo-placeholder" style={{ display: 'none' }}>
+                                        Logo
+                                    </span>
+                                </div>
+                                <span className="partner-name">{partner.name}</span>
+                            </div>
+                        ))}
                     </div>
                 </div>
 

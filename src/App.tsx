@@ -9,6 +9,7 @@ import Stories from './pages/Stories';
 import StoryPathway from './pages/StoryPathway';
 import MapPage from './pages/MapPage';
 import About from './pages/About';
+import Methods from './pages/Methods';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/stories/:slug" element={<StoryPathway />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/map" element={<MapPage />} />
+                    <Route path ="/methods" element={<Methods />} />
                 </Routes>
             </main>
             <Footer />
