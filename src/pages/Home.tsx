@@ -35,7 +35,7 @@ function Home() {
         <div className="hero-overlay">
           <p className="hero-eyebrow">University of Southern Mississippi · Center for Digital Humanities</p>
           <h1 className="hero-title">Digitizing the Cultural Heritage of South Mississippi</h1>
-          <p className="hero-subtitle">Discover history in 3D</p>
+          <p className="hero-subtitle">Discover the culture and history of the region in 3D</p>
           <div className="hero-buttons">
             <Link to="/stories" className="btn btn-solid">Explore the Stories</Link>
             <Link to="/collection" className="btn btn-ghost hero-ghost">Browse the Collection</Link>
@@ -55,7 +55,7 @@ function Home() {
           <div className="info-card">
             <h3>Why South Mississippi?</h3>
             <p>
-              Like all histories, South Mississippi's cultural heritage survives in fragments: objects kept, buildings preserved, archaeological traces recovered, and artworks placed in public view. Studied together, this material culture shows how regional history is made and survives through memory, place, and connection. Likewise, it also shows how regional history can connect to larger national and global historical processes.
+              Like all histories, South Mississippi's cultural heritage survives in fragments: objects kept, buildings preserved, archaeological traces recovered, and artworks placed in public view. Studied together, this material culture shows how regional history is made and survives through memory, place, and connection. South Mississippi has long been a crossroads, from the loess bluffs of the Mississippi River to the Piney Woods to the Gulf Coast. This regional history also connects to larger national and global historical processes.
             </p>
           </div>
           <div className="info-card">
@@ -72,7 +72,7 @@ function Home() {
         <blockquote className="quote-band-text">
           "The past is never dead. It's not even past."
         </blockquote>
-        <p className="quote-band-attribution">William Faulkner, Requiem for a Nun</p>
+        <p className="quote-band-attribution">William Faulkner, <em>Requiem for a Nun</em></p>
       </div>
 
       {/* \ Story pathway cards \ */}
@@ -143,8 +143,11 @@ function Home() {
           </Link>
         </div>
       </section>
+      <section className="container">
+        <img src="/Dome.jpg" alt="pic of dome" className="home-logo" />
+      </section>
     </div>
   );
-}
+} 
 
 export default Home;

@@ -60,7 +60,10 @@ function Header() {
     return (
         <header className={`site-header ${hidden ? "header-hidden" : ""}`}>
             <div className="container header-inner" ref={headerRef}>
-                <Link className="logo" to="/">Digital Humanities at Southern Miss</Link>
+                <Link className="logo" to="/">
+                    <img src="/CDH-Logo.png" alt="CDH Logo" className="header-logo" />
+                    Digital Humanities at Southern Miss
+                </Link>
 
                 <button
                     className="hamburger-toggle"

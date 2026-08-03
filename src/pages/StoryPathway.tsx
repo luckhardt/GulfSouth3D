@@ -71,7 +71,7 @@ function StoryPathway() {
                             <p>{content.southMississippi}</p>
                         </div>
                         <div className="info-card">
-                            <h3>What's Here</h3>
+                            <h3>What's in the Collection</h3>
                             <p>{content.materials}</p>
                         </div>
                         <div className="info-card">

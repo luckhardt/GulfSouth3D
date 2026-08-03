@@ -227,36 +227,36 @@ function AccessibilityMenu() {
   useEffect(() => {
     if (!isReadMode) return;
 
-    const modelViewers = document.querySelectorAll("model-viewer");
-    let modelHoverTimer: ReturnType<typeof setTimeout>;
+    const main = document.getElementById("main-content");
+    if (!main) return;
 
-    function handleEnter(event: Event) {
-      const target = event.currentTarget as HTMLElement;
-      // event.currentTarget (not event.target) reliably refers to the element
-      // the listener was attached to, regardless of any internal re-renders
-      modelHoverTimer = setTimeout(() => {
-        const text = target.getAttribute("alt") ?? "";
-        startSpeaking(text);
-      }, 1500);
+    function handleMouseEnter(event: MouseEvent) {
+        const target = event.target as HTMLElement;
+        if (target.tagName !== "MODEL-VIEWER") return;
+
+        hoverTimer.current = setTimeout(() => {
+            const text = target.getAttribute("alt") ?? "";
+            startSpeaking(text);
+        }, 1500);
     }
 
-    function handleLeave() {
-      clearTimeout(modelHoverTimer);
+    function handleMouseLeave(event: MouseEvent) {
+        const target = event.target as HTMLElement;
+        if (target.tagName !== "MODEL-VIEWER") return;
+        clearTimeout(hoverTimer.current);
     }
 
-    modelViewers.forEach((el) => {
-      el.addEventListener("mouseenter", handleEnter);
-      el.addEventListener("mouseleave", handleLeave);
-    });
+    // useCapture: true lets us catch mouseenter/mouseleave from a parent
+    // even though they normally don't bubble
+    main.addEventListener("mouseenter", handleMouseEnter, true);
+    main.addEventListener("mouseleave", handleMouseLeave, true);
 
     return () => {
-      clearTimeout(modelHoverTimer);
-      modelViewers.forEach((el) => {
-        el.removeEventListener("mouseenter", handleEnter);
-        el.removeEventListener("mouseleave", handleLeave);
-      });
+        main.removeEventListener("mouseenter", handleMouseEnter, true);
+        main.removeEventListener("mouseleave", handleMouseLeave, true);
+        clearTimeout(hoverTimer.current);
     };
-  }, [isReadMode]);
+}, [isReadMode]);
 
   // Close the accessibility panel when clicking anywhere outside it
   useEffect(() => {

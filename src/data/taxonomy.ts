@@ -5,7 +5,7 @@ export const STORY_PATHWAYS = [
   "Community Memory",
   "Historic Buildings",
   "Archaeology",
-  "Public and Decorative Art",
+  "Public and Decorative Arts",
 ] as const;
 export type StoryPathway = (typeof STORY_PATHWAYS)[number];
 
@@ -78,7 +78,7 @@ export const STORY_CARDS: {
     label: "Historic Buildings",
     pathway: "Historic Buildings",
     slug: "historic-buildings",
-    question: "How does this place shape the region’s story? ",
+    question: "How does this place shape the region's story? ",
     teaser: "Buildings hold more than walls and rooflines — they record the social forces, communities, and decisions that shaped South Mississippi across centuries of change.",
   },
   {
@@ -89,10 +89,10 @@ export const STORY_CARDS: {
     teaser: "Beneath the surface of South Mississippi lies a material record older than any written account — fragments that speak to the region's earliest inhabitants and the upheavals that followed.",
   },
   {
-    label: "Public and Decorative Art",
-    pathway: "Public and Decorative Art",
+    label: "Public and Decorative Arts",
+    pathway: "Public and Decorative Arts",
     slug: "public-art",
-    question: "How does public art reflect community values and contested histories?",
+    question: "How does art make shared or everyday spaces meaningful?",
      teaser: "Murals, monuments, and sculptures shape how communities see themselves in public space — celebrating some histories while obscuring others.",
   },
 ];

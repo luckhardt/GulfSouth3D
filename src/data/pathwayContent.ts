@@ -20,8 +20,8 @@ export const PATHWAY_CONTENT: PathwayContent[] = [
     whyDigital: "Viewing these objects in 3D helps us see not just what the object looked like, but its specific form and scale, its surface, texture or decoration, and marks of its use, wear, or care. These can show us not a perfect object or perfect image, but rather one marked by human hands or even just the passage of time. The model is a new layer of interpretation, itself shaped by the digital tools that created it.",
     pullQuotes: [
       {
-        text: "My grandmothers are full of memories.",
-        attribution: "Margaret Walker, \"Lineage\"",
+        text: "I feel like a brown bag of miscellany propped against a wall… Pour out the contents, and there is discovered a jumble of small things priceless and worthless.",
+        attribution: "- Zora Neale Hurston, \"How It Feels to Be Colored Me\"",
       },
     ],
   },
@@ -34,7 +34,7 @@ export const PATHWAY_CONTENT: PathwayContent[] = [
     pullQuotes: [
       {
         text: "Place… is seen in a frame. Not an empty frame, a brimming one. Point of view is a sort of burning-glass, a product of personal experience and time.",
-        attribution: "Eudora Welty, \"Place in Fiction\"",
+        attribution: "- Eudora Welty, \"Place in Fiction\"",
       },
     ],
   },
@@ -47,20 +47,20 @@ export const PATHWAY_CONTENT: PathwayContent[] = [
     pullQuotes: [
       {
         text: "Today's storytellers continue this tradition, telling the old stories and creating new ones to fit a changing world.",
-        attribution: "Chief Phillip Martin, \"Foreword to Choctaw Tales: Stories from the Firekeepers\"",
+        attribution: "- Chief Phillip Martin, \"Foreword to Choctaw Tales: Stories from the Firekeepers\"",
       },
     ],
   },
   {
     slug: "public-art",
-    categoryDefinition: "Public and decorative art includes works made to be encountered in shared spaces, everyday settings, or through designed use. Art changes the relationship between the viewer, the object, and the world. Public and decorative art matters not only because of what it depicts, but because of what it changes: a viewer's relation to a wall, a route, a ceramic surface, a handled object, or a familiar place.",
-    southMississippi: "In South Mississippi, public and decorative art often works through landscape and heritage. Some works change how people see landscape, water, or the natural world, which is not only scenery, but a way of belonging to a place. Others make cultural heritage visible through public images of music, community identity, local memory, and everyday life. In many works, landscape and heritage overlap. All of them show art entering daily life through surface, use, memory, and place.",
+    categoryDefinition: "Public and decorative arts include works made to be encountered in shared spaces, everyday settings, or through designed use. Art changes the relationship between the viewer, the object, and the world. Public and decorative arts matter not only because of what they depict, but because of what they change: a viewer's relation to a wall, a route, a ceramic surface, a handled object, or a familiar place.",
+    southMississippi: "In South Mississippi, public and decorative arts often work through landscape and heritage. Some works change how people see landscape, water, or the natural world, which is not only scenery, but a way of belonging to a place. Others make cultural heritage visible through public images of music, community identity, local memory, and everyday life. In many works, landscape and heritage overlap. All of them show art entering daily life through surface, use, memory, and place.",
     materials: "This category includes murals, painted utility boxes, ceramics, public-facing installations, and decorative objects. Their meaning comes from placement, surface, design, material, use, visibility, and encounter: where they appear, who sees them, how they are handled, how people move around them, and how they change the experience of a place or object.",
     whyDigital: "Viewing art in 3D helps people study visibility, surface, form, and public encounter. A model can show how a mural relates to a wall, sidewalk, street, or viewing distance. It can show how a painted utility box wraps around corners and changes as someone moves past it. For decorative objects, 3D shows form, interior and exterior surfaces, scale, and evidence of handling or use. In each case, 3D shows that art is not only an image. It is an object or surface encountered from a position in space.",
     pullQuotes: [
       {
         text: "Art is incredible not for itself, but in changing the artist's relation to other things… perspective!",
-        attribution: "Walter Inglis Anderson, \"The Horn Island Logs\"",
+        attribution: "- Walter Inglis Anderson, \"The Horn Island Logs\"",
       },
     ],
   },

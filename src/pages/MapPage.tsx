@@ -34,7 +34,7 @@ function spreadOverlapping(objects: HeritageObject[]): (HeritageObject & { posit
 
   for (const group of groups.values()) {
     const [baseLat, baseLng] = coordsFor(group[0].locations.primary);
-    const radius = 0.03;
+    const radius = 0.008; // ~0.5 miles in degrees, adjust as needed
 
     group.forEach((obj, i) => {
       if (group.length === 1) {
@@ -66,6 +66,15 @@ function MapPage() {
         <p className="eyebrow">Geography</p>
         <h1>Explore by Place</h1>
         <p className="page-subtitle">Objects span Hattiesburg, the Gulf Coast, Natchez, and the Piney Woods.</p>
+      </div>
+
+      <div className="container story-page">
+        <div className="pathway-quote-hero">
+          <p className="pathway-quote-text">
+            "Warm skies and gulf blue streams are in my blood. I belong with the smell of fresh pine, with the trail of coon, and the spring growth of wild onion."
+          </p>
+          <p className="pathway-quote-attribution">- Margaret Walker, <em>“Sorrow Home”</em></p>
+        </div>
       </div>
 
       {/* Map content — inside container */}
@@ -103,6 +112,10 @@ function MapPage() {
           </MapContainer>
         </div>
       </div>
+
+      <section className="container">
+        <img src="/map-end.jpg" alt="pic of map end" className="home-logo" />
+      </section>
     </div>
   );
 }

@@ -224,6 +224,21 @@ html[data-motion="reduce"] *::after {
   cursor: not-allowed;
 }
 
+@media (max-width: 860px) {
+  .accessibility-panel {
+    position: fixed;
+    top: 80px;
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    width: auto;
+    max-height: calc(100vh - 96px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 700;
+  }
+}
+
 /*  Read aloud hover mode  */
 body.read-mode #main-content p:hover,
 body.read-mode #main-content h1:hover,
@@ -264,7 +279,13 @@ body.read-mode #main-content span:hover {
   flex-wrap: wrap;
 }
 
-.logo { font-weight: 700; font-size: 1.05rem; }
+.header-logo {
+  height: 32px;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
 
 .main-nav { display: flex; gap: 22px; flex-wrap: wrap; }
 .main-nav a { color: var(--on-header); text-decoration: none; opacity: 0.9; }
@@ -516,9 +537,10 @@ body.read-mode #main-content span:hover {
 }
 
 .stories-intro-inner {
-  max-width: 720px;
+  max-width: 800px;
   margin: 0 auto;
-  text-align: center;
+  text-align: left;
+  padding-left: 0.4em;
 }
 
 .stories-intro-inner h2 {
@@ -536,7 +558,7 @@ body.read-mode #main-content span:hover {
 
 /* Full-width quote bands — merged single definition */
 .quote-band {
-  background: var(--pine);
+  background: #449169;
   padding: 64px clamp(20px, 8vw, 120px);
   text-align: center;
   border-top: 1px solid rgba(237, 239, 227, 0.1);
@@ -563,7 +585,7 @@ body.read-mode #main-content span:hover {
 
 /* Home page quote band variant — subtle surface tint instead of dark pine */
 .quote-band-fade {
-  background: var(--surface);
+  background: #449169;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   padding: 40px clamp(20px, 8vw, 120px);
@@ -572,12 +594,12 @@ body.read-mode #main-content span:hover {
 }
 
 .quote-band-fade .quote-band-text {
-  color: var(--text);
+  color: var(--sage-cream);
   font-size: clamp(1rem, 2vw, 1.3rem);
 }
 
 .quote-band-fade .quote-band-attribution {
-  color: var(--text-soft);
+  color: var(--sage-cream);
   opacity: 1;
 }
 
@@ -639,6 +661,7 @@ body.read-mode #main-content span:hover {
   text-decoration: underline;
   font-size: 0.95rem;
 }
+
 
 /* Remove italics from Stories landing section headings */
 .stories-intro-inner h2 { font-style: normal; }
@@ -1078,8 +1101,11 @@ body.read-mode #main-content span:hover {
 .custom-map-pin { background: transparent; border: none; }
 
 .map-hero {
-  background: var(--pine);
-  padding: 80px clamp(20px, 6vw, 80px) 60px;
+  background:
+    linear-gradient(rgba(27,36,27,0.62), rgba(27,36,27,0.62)),
+    url("/map-hero.jpg") center / cover no-repeat,
+    var(--pine);
+  padding: 190px clamp(20px, 6vw, 80px) 60px;
 }
 
 .map-hero .eyebrow { color: var(--sage-cream); }
@@ -1255,6 +1281,23 @@ body.read-mode #main-content span:hover {
   opacity: 0;
 }
 
+@media (max-width: 860px) {
+  .search-input-sticky {
+    position: static;
+    transform: none;
+    width: 100%;
+    left: auto;
+    top: auto;
+    box-shadow: none;
+    margin-bottom: 16px;
+  }
+
+  .search-input-sticky.search-hidden {
+    transform: none;
+    opacity: 1;
+  }
+}
+
 /*  Home page  */
 .hero {
   background:
@@ -1410,7 +1453,26 @@ body.read-mode #main-content span:hover {
 .footer-social .social-youtube   { background: #FF0000; }
 
 @media (max-width: 768px) {
-  .footer-inner { grid-template-columns: 1fr; gap: 36px; }
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .footer-about {
+    grid-column: 1 / -1;
+  }
+
+  .footer-links,
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 }
 
 /*  Story card image  */
