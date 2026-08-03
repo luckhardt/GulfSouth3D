@@ -6,7 +6,7 @@ import { useState } from "react";
 const team = [
     { name: "Dr. Courtney Luckhardt", title: "Principal Investigator", role: "Associate Professor of History · Director, Center for Digital Humanities" },
     { name: "Gabrielle Bankston", title: "Tabletop Photogrammetry Lead", role: "Graduate Student in History" },
-    { name: "Luke Bynum", title: "UAV Photogrammetry Lead", role: "Graduate Student in History" },
+    { name: "Luke Bynum", title: "UAS Photogrammetry Lead", role: "Graduate Student in History" },
     { name: "Madaleine Ponthieux", title: "Metadata Lead", role: "Graduate Student in English" },
     { name: "Emily Zylka", title: "Photogrammetry Processing Lead", role: "Graduate Student in Anthropology" },
     { name: "Mira Sleasman", title: "Archaeological Consultant", role: "Graduate Student in Anthropology" },
@@ -164,13 +164,13 @@ function About() {
                 <div className="about-section">
                     <h2>Rights and Reuse</h2>
                     <p>
-                        The materials presented in Digitizing the Cultural Heritage of South Mississippi include 3D models, photographs, maps, metadata, and interpretive text created through partnerships among the Center for Digital Humanities, holding institutions, community partners, and project contributors.
+                        The materials presented in <em>Digitizing the Cultural Heritage of South Mississippi</em> include 3D models, photographs, maps, metadata, and interpretive text created through partnerships among the Center for Digital Humanities, holding institutions, community partners, and project contributors.
                     </p>
                     <p>
                         Rights and permissions vary by object and site. Some objects are held by institutional collections; some are associated with public places, community organizations, or partner sites; and some materials may carry cultural, ethical, or access restrictions. The inclusion of a 3D model on this website does not mean that the original object, site, image, or model may be downloaded, altered, reproduced, or used commercially. Each object page includes available rights and reuse information, including the holding institution or source, digitization method, model creator, and link to the full archival record. Users should consult the individual record before reproducing, downloading, publishing, teaching with, or otherwise reusing project materials.
                     </p>
                     <p>
-                        Unless otherwise stated, the interpretive text created for this website may be cited for educational and research purposes with attribution to Digitizing the Cultural Heritage of South Mississippi and the University of Southern Mississippi Center for Digital Humanities. For permissions questions, citation guidance, or reuse requests, please contact the project team through the Center for Digital Humanities. 
+                        Unless otherwise stated, the interpretive text created for this website may be cited for educational and research purposes with attribution to <em>Digitizing the Cultural Heritage of South Mississippi</em> and the University of Southern Mississippi Center for Digital Humanities. For permissions questions, citation guidance, or reuse requests, please contact the project team through the Center for Digital Humanities. 
                     </p>
                 </div>
                 <div className="about-section">

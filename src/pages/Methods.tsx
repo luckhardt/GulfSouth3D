@@ -1,7 +1,6 @@
 function Methods() {
     return (
         <div>
-            {/* Dark hero header — reuses About page hero styling */}
             <div className="about-hero">
                 <p className="eyebrow">Methodology</p>
                 <h1>How We Make 3D Models</h1>
@@ -24,33 +23,35 @@ function Methods() {
                     </p>
                 </div>
 
-                {/* Capture Methods */}
+                {/* Capture Methods — first paragraph immediately below heading,
+                    last paragraph (photography/object handling) moved above the cards */}
                 <div className="about-section">
                     <h2>Capture Methods</h2>
-                    <p className="about-section-intro">
+
+                    {/* First paragraph directly below heading per feedback */}
+                    <p className="about-section-intro" style={{marginLeft: "90px",  marginBottom:"25px"}}>
                         The models in this project were made through several different capture methods, depending on the object or site.
                     </p>
-
+                    {/* Three numbered method cards */}
                     <div className="methods-grid">
                         <div className="method-card">
-                            <h3>1. Tabletop Photogrammetry</h3>
-                            <p>Using a DSLR camera with various lenses for smaller objects. This process involves taking many photographs of an object from different angles and using software to build a 3D model from those images.</p>
+                            <h3 className="indent">1. Tabletop Photogrammetry</h3>
+                            <p>A DSLR camera is used with various lenses for smaller objects. This process involves taking many photographs of an object from different angles and using software to build a 3D model from those images.</p>
                         </div>
                         <div className="method-card">
-                            <h3>2. Structured-Light Scanning</h3>
-                            <p>Used when better suited to the object. This method projects light onto the object's surface and records its shape in three dimensions.</p>
+                            <h3 className="indent">2. Structured-Light Scanning</h3>
+                            <p>This method is used when better suited to the object. This method projects light onto the object's surface and records its shape in three dimensions.</p>
                         </div>
                         <div className="method-card">
-                            <h3>3. UAV Photogrammetry</h3>
-                            <p>Used for buildings and outdoor sites where aerial capture could show scale, rooflines, architectural form, and the relationship between a site and its setting.</p>
+                            <h3 className="indent">3. UAS Photogrammetry</h3>
+                            <p>Drones are used for buildings and outdoor sites where aerial capture could show scale, rooflines, architectural form, and the relationship between a site and its setting.</p>
                         </div>
                     </div>
-
-                    <p className="about-section-intro" style={{ marginTop: "24px" }}>
+                    <p className="about-section-intro" style={{marginLeft: "90px",  marginTop:"25px"}}>
                         Photography and lighting mattered at every stage. Shiny, dark, transparent, fragile, or highly detailed objects can be difficult to model. Outdoors, weather conditions matter enormously for both drone flight and photo quality. Some objects required changes in lighting, background, angle, or capture method. Others could not be modeled successfully with the tools available to us.
                     </p>
-                    <p className="about-section-intro">
-                        Object handling was also part of the method. Historical objects are not props. Many are fragile, rare, or held by partner institutions. Capture decisions had to balance model quality with care for the object.
+                    <p className="about-section-intro" style={{marginLeft: "90px"}}>
+                       Object handling was also part of the method. Historical objects are not props. Many are fragile, rare, or held by partner institutions. Capture decisions had to balance model quality with care for the object.
                     </p>
                 </div>
 
@@ -64,7 +65,7 @@ function Methods() {
                         Processing included alignment, mesh construction, texture generation, model cleanup, export, and web optimization. The final public models were exported in GLB format so that they could be displayed online.
                     </p>
                     <p>
-                        A model that looks good in processing software is not automatically ready for the web. Large files have to be optimized. Holes, alignment errors, missing surfaces, texture problems, and scale issues have to be reviewed. Some models needed repair. Some needed to be reduced in size. Some objects or sites could not be completed at publishable quality.
+                        A model that looks good in processing software is not automatically ready for the web. Large files have to be optimized. Holes, alignment errors, missing surfaces, texture problems, and scale issues have to be reviewed. Some models needed repaired or to be reduced in size, and some objects or sites could not be completed at publishable quality.
                     </p>
                 </div>
 
