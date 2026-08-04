@@ -58,8 +58,9 @@ async function getFilesForItem(itemId: number): Promise<{ modelUrl: string; post
     const poster = files.find((f: any) => f.mime_type?.startsWith("image/"));
 
     //rewiring through proxy to avoid CORS issues. The proxy is set up in vite.config.ts
-    const toProxy = (url: string) => 
-         url.replace(/^https?:\/\/[^/]+\/files/, "/omeka-files");
+    const toProxy = (url: string) => isDev
+        ? url.replace(/^https?:\/\/[^/]+\/files/, "/omeka-files")
+        : url; // in production use the real URL directly
     
     return {
         modelUrl: toProxy(model?.file_urls?.original ?? ""),

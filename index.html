@@ -12,5 +12,13 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      (function() {
+        var redirect = window.location.search.slice(1);
+        if (redirect) {
+          window.history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
   </body>
 </html>
