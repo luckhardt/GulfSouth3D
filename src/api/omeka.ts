@@ -2,7 +2,10 @@ import type { HeritageObject } from '../types';
 import type { Theme, ObjectType, Place, Period, StoryPathway } from '../data/taxonomy';
 import { sampleObjects } from "../data/sampleobjects";
 
-const OMEKA_URL = import.meta.env.VITE_OMEKA_API_URL;
+const isDev = import.meta.env.DEV;
+const OMEKA_URL = isDev
+  ? import.meta.env.VITE_OMEKA_API_URL
+  : "https://digitizedculturalheritageofusmarchive.usmcdh.org/api";
 const OMEKA_PUBLIC_URL = "https://digitizedculturalheritageofusmarchive.usmcdh.org";
 
 //grabs the first value for a given Dublin Core
