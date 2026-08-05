@@ -18,11 +18,11 @@ function useAccessibilitySettings() {
     const savedTextSize = localStorage.getItem("textSize") as TextSize | null;
     const savedMotion = localStorage.getItem("motion") as Motion | null;
 
+  //always default to light unless the visitor has chosen otherwise
     if (savedTheme) {
         setTheme(savedTheme);
     } else {
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        setTheme(prefersDark ? "dark" : "light");
+         setTheme("light");
     }
 
     if (savedContrast) setContrast(savedContrast);

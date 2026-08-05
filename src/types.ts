@@ -9,7 +9,7 @@ import type {
 
 //An object can be tied to several places, each with a different theme
 export interface ObjectLocation {
-  primary: Place; 
+  primary: Place;
   recovery?: Place;         // ? is used to indicate that this field is optional
   holding?: Place;
   digitization?: Place;
@@ -17,13 +17,15 @@ export interface ObjectLocation {
 
 export interface HeritageObject {
   id: string;
-  slug: string; 
+  slug: string;
   title: string;
   objectType: ObjectType;
   storyPathway: StoryPathway;
   themes: Theme[];
   period: Period;
   locations: ObjectLocation;
+  lat?: number;   // real latitude from the Omeka Geolocation plugin (if set)
+  lng?: number;   // real longitude
   significance: string;
   whyItMatters: string;
   whyUse3D?: string;

@@ -96,7 +96,7 @@ function About() {
                 <div className="about-section">
                     <h2>About the Center for Digital Humanities</h2>
                     <p>
-                        The Center for Digital Humanities (CDH) is an interdisciplinary lab that supports students, faculty, staff, and community partners in the exploration of digital methods to study, preserve, and share humanities research. We offer consulting and technical expertise for digital projects, host workshops and conferences, and offer courses for both undergraduate and graduate students. 
+                        The Center for Digital Humanities (CDH) is an interdisciplinary lab that supports students, faculty, staff, and community partners in the exploration of digital methods to study, preserve, and share humanities research. We offer consulting and technical expertise for digital projects, host workshops and conferences, and offer courses for both undergraduate and graduate students. 
                     </p>
                 </div>
 
@@ -107,45 +107,44 @@ function About() {
                         <div className="pillar-card">
                             <div className="pillar-icon">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                                    <path d="M12 2 3 7l9 5 9-5-9-5Z"/>
+                                    <path d="M3 7v10l9 5 9-5V7"/>
+                                    <path d="M12 12v10"/>
                                 </svg>
                             </div>
-                            <h3>3D Digitization</h3>
-                            <p>We use photogrammetry and structured-light scanning to capture sub-millimeter surface detail, enabling researchers worldwide to study objects in dimensions previously unavailable.</p>
-                        </div>
-                        <div className="pillar-card">
-                            <div className="pillar-icon">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                                    <circle cx="9" cy="7" r="4"/>
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                                </svg>
-                            </div>
-                            <h3>Community Partnership</h3>
-                            <p>Every digitization project begins with community consultation. Tribal nations, local historical societies, and descendant communities guide what we digitize and how it is described.</p>
-                        </div>
-                        <div className="pillar-card">
-                            <div className="pillar-icon">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <line x1="2" y1="12" x2="22" y2="12"/>
-                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                                </svg>
-                            </div>
-                            <h3>Open Scholarship</h3>
-                            <p>3D models, metadata, and contextual descriptions are made freely available under Creative Commons licensing, supporting open-access research and education.</p>
+                            <h3>3D as Method</h3>
+                            <p>We use 3D modeling to study humanistic questions. The models are not replacements for original objects or places. They are interpretive records that help viewers look closely and ask historical and cultural heritage questions experientially through form, surface, and spatial context.</p>
                         </div>
                         <div className="pillar-card">
                             <div className="pillar-icon">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    <path d="m9 12 2 2 4-4"/>
+                                </svg>
+                            </div>
+                            <h3>Care and Stewardship</h3>
+                            <p>Digitization depends on permission, object care, and attention to context. Some materials can be shared widely; others require limits. Public access is important, but it is not the only value. Rights, community expectations, and stewardship shape what appears here.</p>
+                        </div>
+                        <div className="pillar-card">
+                            <div className="pillar-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <ellipse cx="12" cy="5" rx="8" ry="3"/>
+                                    <path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/>
+                                    <path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>
+                                </svg>
+                            </div>
+                            <h3>Archive and Reuse </h3>
+                            <p>Each model is connected to metadata, location information, rights statements, and interpretive text. The goal is not only to display 3D objects, but to place them within the histories, communities, and records needed to study them responsibly and reuse them thoughtfully and non-commercially. </p>
+                        </div>
+                        <div className="pillar-card">
+                            <div className="pillar-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
                                 </svg>
                             </div>
                             <h3>Regional Focus</h3>
-                            <p>Our collection centers on the Gulf South — a region of extraordinary cultural complexity that has been chronically underrepresented in national heritage digitization programs.</p>
+                            <p>This project treats South Mississippi as a dense historical landscape, not a peripheral one. Objects, buildings, archaeological materials, and artworks connect the region to wider histories of Indigenous presence, war, education, faith, public life, memory, and belonging. </p>
                         </div>
                     </div>
                 </div>

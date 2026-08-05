@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { getObjects } from "../api/omeka";
-import { coordsFor, PLACE_COORDS } from "../data/placeCoords";
 import type { HeritageObject } from "../types";
 import { PLACES } from "../data/taxonomy";
 import type { Place } from "../data/taxonomy";
@@ -9,43 +8,33 @@ import "leaflet/dist/leaflet.css";
 import ObjectMarker from "../components/ObjectMarker";
 import FlyTo from "../components/FlyTo";
 
-// Spreads overlapping markers into a small circle so they don't stack.
-// Guards against objects whose place value doesn't match the controlled
-// vocabulary — those are skipped with a warning rather than crashing.
-function spreadOverlapping(objects: HeritageObject[]): (HeritageObject & { position: [number, number] })[] {
-  const groups = new Map<string, HeritageObject[]>();
+// Places each object at its real coordinate (from the Omeka Geolocation plugin).
+// Objects sharing an identical coordinate (e.g. several from the same lab) are
+// fanned out slightly so they don't stack. Objects without coordinates are
+// left off the map.
+function withPositions(objects: HeritageObject[]): (HeritageObject & { position: [number, number] })[] {
+  const groups = new Map<string, (HeritageObject & { lat: number; lng: number })[]>();
 
   for (const obj of objects) {
-    const place = obj.locations.primary;
-
-    // Skip objects whose place isn't in PLACE_COORDS — avoids a crash
-    // when Omeka data has a Coverage value that doesn't match the taxonomy
-    // (e.g. wrong casing, "Archaeology Lab", or an unrecognized location)
-    if (!PLACE_COORDS[place as Place]) {
-      console.warn(`Skipping object "${obj.title}" — unknown place: "${place}"`);
-      continue;
-    }
-
-    if (!groups.has(place)) groups.set(place, []);
-    groups.get(place)!.push(obj);
+    if (typeof obj.lat !== "number" || typeof obj.lng !== "number") continue;
+    const key = `${obj.lat},${obj.lng}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(obj as HeritageObject & { lat: number; lng: number });
   }
 
   const result: (HeritageObject & { position: [number, number] })[] = [];
 
   for (const group of groups.values()) {
-    const [baseLat, baseLng] = coordsFor(group[0].locations.primary);
-    const radius = 0.008; // ~0.5 miles in degrees, adjust as needed
-
-    group.forEach((obj, i) => {
-      if (group.length === 1) {
-        result.push({ ...obj, position: [baseLat, baseLng] });
-      } else {
+    if (group.length === 1) {
+      const o = group[0];
+      result.push({ ...o, position: [o.lat, o.lng] });
+    } else {
+      const radius = 0.0006; // ~65 m, just enough to separate identical points
+      group.forEach((o, i) => {
         const angle = (2 * Math.PI * i) / group.length;
-        const lat = baseLat + radius * Math.sin(angle);
-        const lng = baseLng + radius * Math.cos(angle);
-        result.push({ ...obj, position: [lat, lng] });
-      }
-    });
+        result.push({ ...o, position: [o.lat + radius * Math.sin(angle), o.lng + radius * Math.cos(angle)] });
+      });
+    }
   }
 
   return result;
@@ -106,7 +95,7 @@ function MapPage() {
               attribution="&copy; OpenStreetMap contributors"
             />
             <FlyTo place={selectedPlace} />
-            {spreadOverlapping(objects).map((object) => (
+            {withPositions(objects).map((object) => (
               <ObjectMarker key={object.id} object={object} position={object.position} />
             ))}
           </MapContainer>
