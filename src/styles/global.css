@@ -1487,6 +1487,7 @@ body.read-mode #main-content span:hover {
   padding: 24px;
   color: var(--sage-cream);
   text-decoration: none;
+  direction: ltr;
   transition: transform 0.15s ease, box-shadow 0.2s ease;
   background-color: var(--pine);
   background-size: cover;
