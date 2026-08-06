@@ -25,6 +25,8 @@ const partners = [
     { name: "Mississippi Department of Transportation", slug: "mdot" },
     { name: "Our Lady of the Gulf Catholic Church, Bay St. Louis", slug: "our-lady-gulf" },
     { name: "Temple B'nai Israel, Hattiesburg", slug: "temple-bnai-israel" },
+    { name: "Hattiesburg Pocket Museum", slug: "pocket-museum" },
+    { name: "Hattiesburg Alliance for Public Art", slug: "hapa" },
 ];
 
 // Computes initials from a name, skipping titles like "Dr." that end with a period
@@ -282,7 +284,7 @@ function About() {
                             </div>
                             <div>
                                 <span className="contact-label">Address</span>
-                                <span className="contact-value">118 College Drive<br />Hattiesburg, MS 39406</span>
+                                <span className="contact-value">118 College Drive #5047<br />Hattiesburg, MS 39406</span>
                             </div>
                         </div>
                     </div>

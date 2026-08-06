@@ -5,7 +5,7 @@ function Footer() {
             <div className="container footer-inner">
                 <div className="footer-about">
                     <h3 className="footer-title">Digitizing the Cultural Heritage<br />of South Mississippi</h3>
-                    <p>A 3D Digital Archive of objects, buildings,and public and decorative arts from the Gulf Coast to the Piney Woods, and beyond. </p>
+                    <p>A 3D Digital Archive of objects, buildings, and public and decorative arts from the Gulf Coast to the Piney Woods, and beyond. </p>
                     <div className="footer-social" aria-label="Social media links">
                         <a href="https://www.instagram.com/dhatsouthernmiss/" className="social-instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
