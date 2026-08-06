@@ -10,6 +10,8 @@ import StoryPathway from './pages/StoryPathway';
 import MapPage from './pages/MapPage';
 import About from './pages/About';
 import Methods from './pages/Methods';
+import CookieBanner from './components/CookieBanner';
+import Privacy from './pages/Privacy';
 
 function App() {
     return (
@@ -26,9 +28,11 @@ function App() {
                     <Route path="/about" element={<About />} />
                     <Route path="/map" element={<MapPage />} />
                     <Route path ="/methods" element={<Methods />} />
+                    <Route path="/privacy" element={<Privacy />} />
                 </Routes>
             </main>
             <Footer />
+            <CookieBanner />
         </BrowserRouter>
     );
 }

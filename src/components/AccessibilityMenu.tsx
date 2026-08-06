@@ -42,7 +42,7 @@ function AccessibilityMenu() {
   // Reading isPausedRef.current instead always gives the real, up-to-date value.
 
   // ── Accessibility settings (theme, contrast, text size, motion) ────
-  const { theme, setTheme, contrast, setContrast, textSize, setTextSize, motion, setMotion } = useAccessibilitySettings();
+  const { theme, setTheme, contrast, setContrast, textSize, setTextSize, motion, setMotion, reset } = useAccessibilitySettings();
 
   // ── Voice warm-up ──
   // iOS Safari sometimes has an empty voice list on first load. Calling
@@ -413,6 +413,12 @@ function AccessibilityMenu() {
                 Hover to Read {isReadMode ? "✓" : ""}
               </button>
             </div>
+          </div>
+
+          <div className="accessibility-group">
+            <button className="accessibility-option" onClick={reset}>
+              Reset preferences
+            </button>
           </div>
 
         </div>

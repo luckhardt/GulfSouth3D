@@ -91,7 +91,7 @@ export const STORY_CARDS: {
   {
     label: "Public and Decorative Arts",
     pathway: "Public and Decorative Arts",
-    slug: "public-art",
+    slug: "public-and-decorative-arts",
     question: "How does art make shared or everyday spaces meaningful?",
      teaser: "Follow stories of art in shared and everyday spaces. These models examine murals, ceramics, and public-facing installations as works that shape how people encounter landscape, memory, and local identity through designed and visible artwork.",
   },

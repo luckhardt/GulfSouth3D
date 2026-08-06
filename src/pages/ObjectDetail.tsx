@@ -67,13 +67,13 @@ function ObjectDetail() {
       {/* NEW row: Why This Matters + Why Use 3D, side by side, half-width each */}
       <div className="why-row">
         <div className="why-section metadata-panel">
-          <p className="why-heading">Why This Matters</p>
+          <p className="why-heading">What cultural heritage does this object preserve?</p>
           <p>{object.whyItMatters}</p>
         </div>
 
         {object.whyUse3D && (
           <div className="why-section metadata-panel">
-            <p className="why-heading">Why Use 3D</p>
+            <p className="why-heading"> What does this 3D model reveal?</p>
             <p>{object.whyUse3D}</p>
           </div>
         )}

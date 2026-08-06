@@ -692,8 +692,8 @@ body.read-mode #main-content span:hover {
   font-size: 1.05rem;
   line-height: 1.8;
   color: var(--text-soft);
-  max-width: 75ch;
-  margin: auto;
+  max-width: 85ch;
+  margin-left: 3px;;
   text-align: justify;
 }
 
@@ -721,19 +721,19 @@ body.read-mode #main-content span:hover {
 .pathway-quote-hero {
   margin: 40px 0;
   padding: 32px 0;
-  max-width: 600px;
+  max-width: 900px;
 }
 
 .pathway-quote-hero .pathway-quote-text {
   font-style: italic;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   color: var(--text-soft);
   line-height: 1.7;
   margin: 0 0 8px;
 }
 
 .pathway-quote-hero .pathway-quote-attribution {
-  font-size: 0.82rem;
+  font-size: 1rem;
   color: var(--olive);
   margin: 0;
 }

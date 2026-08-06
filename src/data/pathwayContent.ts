@@ -52,7 +52,7 @@ export const PATHWAY_CONTENT: PathwayContent[] = [
     ],
   },
   {
-    slug: "public-art",
+    slug: "public-and-decorative-arts",
     categoryDefinition: "Public and decorative arts include works made to be encountered in shared spaces, everyday settings, or through designed use. Art changes the relationship between the viewer, the object, and the world. Public and decorative arts matter not only because of what they depict, but because of what they change: a viewer's relation to a wall, a route, a ceramic surface, a handled object, or a familiar place.",
     southMississippi: "In South Mississippi, public and decorative arts often work through landscape and heritage. Some works change how people see landscape, water, or the natural world, which is not only scenery, but a way of belonging to a place. Others make cultural heritage visible through public images of music, community identity, local memory, and everyday life. In many works, landscape and heritage overlap. All of them show art entering daily life through surface, use, memory, and place.",
     materials: "This category includes murals, painted utility boxes, ceramics, public-facing installations, and decorative objects. Their meaning comes from placement, surface, design, material, use, visibility, and encounter: where they appear, who sees them, how they are handled, how people move around them, and how they change the experience of a place or object.",

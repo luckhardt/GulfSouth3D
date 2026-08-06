@@ -18,11 +18,11 @@ function useAccessibilitySettings() {
     const savedTextSize = localStorage.getItem("textSize") as TextSize | null;
     const savedMotion = localStorage.getItem("motion") as Motion | null;
 
-  //always default to light unless the visitor has chosen otherwise
     if (savedTheme) {
         setTheme(savedTheme);
     } else {
-         setTheme("light");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        setTheme(prefersDark ? "dark" : "light");
     }
 
     if (savedContrast) setContrast(savedContrast);
@@ -67,7 +67,19 @@ function useAccessibilitySettings() {
         }
     }, [motion]);
 
-  return { theme, setTheme, contrast, setContrast, textSize, setTextSize, motion, setMotion };
+  //Clear saved accessibility preferences and return everything to defaults
+  function reset() {
+    localStorage.removeItem("theme");
+    localStorage.removeItem("contrast");
+    localStorage.removeItem("textSize");
+    localStorage.removeItem("motion");
+    setTheme("light");
+    setContrast("normal");
+    setTextSize("normal");
+    setMotion("normal");
+  }
+
+  return { theme, setTheme, contrast, setContrast, textSize, setTextSize, motion, setMotion, reset };
 }
 
 export default useAccessibilitySettings;

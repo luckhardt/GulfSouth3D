@@ -4,7 +4,7 @@ import { STORY_CARDS } from "../data/taxonomy";
 // Cards grouped by editorial theme, selected by slug rather than array order
 // so taxonomy.ts order doesn't need to change (which would affect Home page)
 const GROUP_ONE = ["community-memory", "archaeology"];
-const GROUP_TWO = ["historic-buildings", "public-art"];
+const GROUP_TWO = ["historic-buildings", "public-and-decorative-arts"];
 
 function Stories() {
     const groupOne = GROUP_ONE

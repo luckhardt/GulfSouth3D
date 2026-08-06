@@ -41,7 +41,6 @@ function slugifyName(name: string): string {
     return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
-// 
 // TEAM CARD COMPONENT
 // Each card manages its own image-load state independently.
 // If the headshot fails to load (file missing, wrong name, etc.),
@@ -104,7 +103,7 @@ function About() {
 
                 {/* Our Four Pillars */}
                 <div className="about-section">
-                    <h2>Our Four Pillars</h2>
+                    <h2>What Guides the Project</h2>
                     <div className="pillars-grid">
                         <div className="pillar-card">
                             <div className="pillar-icon">
@@ -275,7 +274,7 @@ function About() {
                             </div>
                             <div>
                                 <span className="contact-label">Phone</span>
-                                <span className="contact-value">(601) 266-4321</span>
+                                <span className="contact-value">(601) 266-4558</span>
                             </div>
                         </div>
                         <div className="contact-item">
@@ -284,7 +283,7 @@ function About() {
                             </div>
                             <div>
                                 <span className="contact-label">Address</span>
-                                <span className="contact-value">118 College Drive #5047<br />Hattiesburg, MS 39406</span>
+                                <span className="contact-value">118 College Drive, #5047<br />Hattiesburg, MS 39406</span>
                             </div>
                         </div>
                     </div>
