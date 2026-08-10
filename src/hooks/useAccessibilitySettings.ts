@@ -73,6 +73,7 @@ function useAccessibilitySettings() {
     localStorage.removeItem("contrast");
     localStorage.removeItem("textSize");
     localStorage.removeItem("motion");
+    localStorage.removeItem("cookieNoticeSeen");
     setTheme("light");
     setContrast("normal");
     setTextSize("normal");

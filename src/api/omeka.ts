@@ -175,7 +175,9 @@ async function fetchObjects(): Promise<HeritageObject[]> {
 
         return results
             .filter((r) => r.status === "fulfilled")
-            .map((r) => (r as PromiseFulfilledResult<HeritageObject>).value);
+            .map((r) => (r as PromiseFulfilledResult<HeritageObject>).value)
+            // Keep "Failed Scans" records out of the public site (they remain in Omeka)
+            .filter((obj) => obj.storyPathway?.trim().toLowerCase() !== "failed scans");
     } catch (error) {
         console.error("Failed to Fetch Objects from Omeka: ", error);
         return sampleObjects;
