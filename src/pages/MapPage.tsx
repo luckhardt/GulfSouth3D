@@ -54,7 +54,7 @@ function MapPage() {
       <div className="map-hero">
         <p className="eyebrow">Geography</p>
         <h1>Explore by Place</h1>
-        <p className="page-subtitle">Objects span Hattiesburg, the Gulf Coast, Natchez, and the Piney Woods.</p>
+        <p className="page-subtitle">Objects span Hattiesburg to the Piney Woods and the Gulf Coast.</p>
       </div>
 
       <div className="container story-page">
