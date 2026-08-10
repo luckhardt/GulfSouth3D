@@ -1,10 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getObjects } from "../api/omeka";
 import { STORY_CARDS } from "../data/taxonomy";
 import { PATHWAY_CONTENT } from "../data/pathwayContent";
 import ObjectCard from "../components/ObjectCard";
 import type { HeritageObject } from "../types";
+
+// Fisher-Yates shuffle — returns up to `count` random items without mutating the input
+function getRandomItems<T>(array: T[], count: number): T[] {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled.slice(0, count);
+}
 
 function StoryPathway() {
     const { slug } = useParams();
@@ -21,6 +31,21 @@ function StoryPathway() {
         });
     }, []);
 
+    // All objects in this pathway (used for the full theme list)
+    const pathwayObjects = useMemo(
+        () => (card ? objects.filter((o) => o.storyPathway === card.pathway) : []),
+        [objects, card]
+    );
+
+    // Show up to 4 objects from this pathway, reshuffled on each page load
+    const featured = useMemo(() => getRandomItems(pathwayObjects, 4), [pathwayObjects]);
+
+    // Themes reflect the whole pathway, not just the 4 shown
+    const uniqueThemes = useMemo(
+        () => [...new Set(pathwayObjects.flatMap((object) => object.themes))],
+        [pathwayObjects]
+    );
+
     if (loading) return <div className="container"><p>Loading...</p></div>;
 
     if (!card) {
@@ -31,10 +56,6 @@ function StoryPathway() {
             </div>
         );
     }
-
-    const featured = objects.filter((o) => o.storyPathway === card.pathway);
-    const allThemes = featured.flatMap((object) => object.themes);
-    const uniqueThemes = [...new Set(allThemes)];
 
     return (
         <div>

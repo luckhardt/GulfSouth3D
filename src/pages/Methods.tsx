@@ -1,7 +1,7 @@
 function Methods() {
     return (
         <div>
-            <div className="about-hero">
+            <div className="about-hero methods-hero">
                 <p className="eyebrow">Methodology</p>
                 <h1>How We Make 3D Models</h1>
                 <p>A guide to the capture methods, decisions, and tools behind this project.</p>
@@ -53,6 +53,12 @@ function Methods() {
                     <p className="about-section-intro" style={{marginLeft: "90px"}}>
                        Object handling was also part of the method. Historical objects are not props. Many are fragile, rare, or held by partner institutions. Capture decisions had to balance model quality with care for the object.
                     </p>
+
+                    <div className="methods-row">
+                        <img src="/methods/scanning-1.jpg" alt="Capturing an object during scanning" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                        <img src="/methods/scanning-2.jpg" alt="Capturing an object during scanning" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                        <img src="/methods/scanning-3.jpg" alt="Capturing an object during scanning" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                    </div>
                 </div>
 
                 {/* Processing Workflow */}
@@ -67,6 +73,11 @@ function Methods() {
                     <p>
                         A model that looks good in processing software is not automatically ready for the web. Large files have to be optimized. Holes, alignment errors, missing surfaces, texture problems, and scale issues have to be reviewed. Some models needed repaired or to be reduced in size, and some objects or sites could not be completed at publishable quality.
                     </p>
+
+                    <div className="methods-row methods-row-lg">
+                        <img src="/methods/processing-1.jpg" alt="Processing a 3D model" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                        <img src="/methods/processing-2.jpg" alt="Processing a 3D model" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                    </div>
                 </div>
 
                 {/* Metadata and Archive */}
@@ -103,6 +114,8 @@ function Methods() {
                     <p>
                         The project team was chosen from students who had previously completed a Digital Humanities internship course (Humanities 695). The workflow developed for this project is meant to be reusable. It gives the Center for Digital Humanities a model for future projects that connect 3D modeling, archival description, and public digital scholarship.
                     </p>
+
+                    <img src="/methods/hum-695.jpg" alt="Students in the Humanities 695 training course" className="methods-photo-single" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
                 </div>
 
                 {/* AI Disclosure */}

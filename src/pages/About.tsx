@@ -160,6 +160,24 @@ function About() {
                     </ul>
                 </div>
 
+                {/* Team & Work photos */}
+                <div className="about-section">
+                    <div className="about-photos">
+                        <img
+                            src="/team-pic.jpg"
+                            alt="The Digitizing the Cultural Heritage of South Mississippi project team"
+                            className="about-photo"
+                            onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                        />
+                        <img
+                            src="/work-pic.jpg"
+                            alt="The team at work digitizing cultural heritage objects"
+                            className="about-photo"
+                            onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                        />
+                    </div>
+                </div>
+
                 {/* Rights & Stewardship */}
                 <div className="about-section">
                     <h2>Rights and Reuse</h2>
