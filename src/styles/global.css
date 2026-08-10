@@ -1700,3 +1700,24 @@ img.home-logo {
   border-radius: var(--radius);
   border: 1px solid var(--line);
 }
+
+/*  Theme pills used as links (Stories -> Collection)  */
+a.chip {
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+a.chip:hover {
+  background: var(--pine);
+  color: var(--sage-cream);
+}
+
+/*  Compact theme pills folded into the Stories "connections" section  */
+.browse-themes {
+  justify-content: center;
+  margin: 24px 0 8px;
+}
+.browse-themes .chip {
+  font-size: 0.9rem;
+  padding: 0.3em 0.85em;
+}

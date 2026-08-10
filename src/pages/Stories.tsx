@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { STORY_CARDS } from "../data/taxonomy";
+import { STORY_CARDS, THEMES } from "../data/taxonomy";
 
 // Cards grouped by editorial theme, selected by slug rather than array order
 // so taxonomy.ts order doesn't need to change (which would affect Home page)
@@ -178,17 +178,29 @@ function Stories() {
                     <p>
                         A uniform, a school, a church, a projectile point, a decanter, or an auditorium begins in one place, but each one reaches outward. They show how national and global events were lived locally, how communities built institutions in response to larger forces, and how South Mississippi's histories can help us understand broader patterns of war, education, faith, Indigenous presence, public life, and belonging. 
                     </p>
+                    <div className="theme-pills browse-themes">
+                        {THEMES.map((theme) => (
+                            <Link
+                                key={theme}
+                                to={`/collection?theme=${encodeURIComponent(theme)}`}
+                                className="chip"
+                            >
+                                {theme}
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             </div>
+
 
             {/*  Footer link  */}
             <div className="stories-footer-link">
                 <Link to="/collection">Prefer to browse by object? View the full collection →</Link>
             </div>
 
-            <div className="home-logo">
-                <img src="/stories-logo.jpg" alt="Stories logo" />
-            </div>
+            <section className="container">
+                <img src="/stories-logo.jpg" alt="Stories logo" className="home-logo" />
+            </section>
         </div>
     );
 }

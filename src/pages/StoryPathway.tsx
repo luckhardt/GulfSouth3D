@@ -125,9 +125,11 @@ function StoryPathway() {
                     <Link to="/map" className="btn btn-solid">Explore the Map</Link>
                 </div>
                 {(() => {
-                    const currentIndex = STORY_CARDS.findIndex((c) => c.slug === slug);
-                    const prev = STORY_CARDS[currentIndex - 1];
-                    const next = STORY_CARDS[currentIndex + 1];
+                    // Editorial pathway order for prev/next (Archaeology follows Community Memory)
+                    const order = ["community-memory", "archaeology", "historic-buildings", "public-and-decorative-arts"];
+                    const currentIndex = order.indexOf(slug ?? "");
+                    const prev = STORY_CARDS.find((c) => c.slug === order[currentIndex - 1]);
+                    const next = STORY_CARDS.find((c) => c.slug === order[currentIndex + 1]);
 
                     return (
                         <div className="pathway-nav">

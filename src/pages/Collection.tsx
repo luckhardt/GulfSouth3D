@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import useScrollDirection from "../hooks/useScrollDirection";
 import type React from "react";
 import ObjectCard from "../components/ObjectCard";
@@ -18,7 +19,10 @@ function Collection() {
     const [loading, setLoading] = useState(true);
     const [query, setQuery] = useState(""); //the search text
     const [pathways, setPathways] = useState<StoryPathway[]>([])  //selected pathways
-    const [themes, setThemes] = useState<Theme[]>([]);
+    const [searchParams] = useSearchParams();
+    const [themes, setThemes] = useState<Theme[]>(
+        () => searchParams.getAll("theme").filter((t): t is Theme => (THEMES as readonly string[]).includes(t))
+    );
     const [types, setTypes] = useState<ObjectType[]>([]);
     const [places, setPlaces] = useState<Place[]>([]);
     const [periods, setPeriods] = useState<Period[]>([]);
