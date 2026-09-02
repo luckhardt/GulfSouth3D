@@ -89,7 +89,7 @@ function About() {
                 <div className="about-section">
                     <h2>Purpose of Project</h2>
                     <p>
-                        Digitizing the Cultural Heritage of South Mississippi creates 3D models of selected objects, buildings, archaeological materials, and public artworks from across the region. The project preserves these models with structured metadata and presents them through a public website that connects objects and places to stories about memory, community, material culture, and regional history. Its purpose is not simply to make digital copies, but to use 3D modeling as a way to study form, scale, surface, place, context to tell stories about the people and histories of South Mississippi while building a reusable workflow for student training, archival documentation, and public digital scholarship.
+                        Digitizing the Cultural Heritage of South Mississippi creates 3D models of selected objects, buildings, archaeological materials, and public artworks from across the region. The project preserves these models with structured metadata and presents them through a public website that connects objects and places to stories about memory, community, material culture, and regional history. Its purpose is not simply to make digital copies, but to use 3D modeling as a way to study form, scale, surface, place, context to tell stories about the people and histories of South Mississippi while building a reusable workflow for student training, archival documentation, and public digital scholarship. This project was generously supported by a grant from the Jimmy A. Payne Foundation.
                     </p>
                 </div>
 
